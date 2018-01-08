@@ -1,6 +1,6 @@
 "use strict";
 
-const BIAN_KEY = '';
-const BIAN_SECRECT = '';
-const HUOBI_KEY = '';
-const HUOBI_SECRECT = '';
+const BIAN_KEY = 'F62oko49UYEeES0DMPz4xWhaDJQBWxILrodMDwA4gvwlrlHUsgjOWNdaW095WQEN';
+const BIAN_SECRECT = '2kWr5kBjf7HzC2lTdQsAeYTj6Fy0Sk6CbZ7noofl6PKFFz0v6yJgVNacGvZ8qHQS';
+const HUOBI_KEY = '415a58b2-bdc527bf-2309c9e8-23296';
+const HUOBI_SECRECT = '50f2c915-668d4ec8-0d77a523-4b3bf';

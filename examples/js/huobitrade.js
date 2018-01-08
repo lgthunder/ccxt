@@ -11,7 +11,6 @@ const key = require('./exchange_config').HUOBI_KEY;
 const secret = require('./exchange_config').HUOBI_SECRET;
 require('ansicolor').nice;
 
-
 module.exports = class huobitrade {
 
     constructor() {
