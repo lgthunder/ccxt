@@ -28,3 +28,5 @@ nbproject/
 vendor/
 examples/js/exchange_config.js
 examples/js/trade_config.js
+examples/js/err.log
+examples/js/out.log
