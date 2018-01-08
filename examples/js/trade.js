@@ -41,6 +41,9 @@ function fetchTicker(symbol) {
         let precent = diff / bianPrice * 100;
         console.log(precent);
         fetchTicker(symbol);
+    }, function () {
+        console.log("------err----")
+        fetchTicker(symbol);
     })
 }
 
