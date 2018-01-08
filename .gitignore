@@ -27,3 +27,4 @@ keys.local.json
 nbproject/
 vendor/
 examples/js/exchange_config.js
+examples/js/trade_config.js
