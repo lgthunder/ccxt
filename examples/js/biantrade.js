@@ -2,8 +2,8 @@
 
 const symbol_etc2usdt = 'ETC/BTC'
 const ccxt = require('../../ccxt')
-
-
+const key = require('./exchange_config').BIAN_KEY;
+const secret = require('./exchange_config').BIAN_SECRET;
 module.exports = class biantrade {
     constructor() {
         this.exchange = new ccxt.binance({

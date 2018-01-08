@@ -6,7 +6,9 @@ const asciichart = require('asciichart')
 const log = require('ololog')
 const symbol_etc2usdt = 'ETC/USDT'
 const symbol_etc2btc = 'ETC/BTC'
-const huobi =require('./huobitrade.js')
+const huobi = require('./huobitrade.js')
+const key = require('./exchange_config').HUOBI_KEY;
+const secret = require('./exchange_config').HUOBI_SECRET;
 require('ansicolor').nice;
 
 
@@ -91,7 +93,7 @@ module.exports = class huobitrade {
 }
 
 
- function main() {
+function main() {
     // console.log(ccxt.exchanges)
     // const orders = await exchange.loadMarkets ()
     // log (exchange.id.green, 'loaded', exchange.symbols.length.toString ().bright.green, 'symbols')
