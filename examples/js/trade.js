@@ -1,5 +1,5 @@
 "use strict";
-
+var Rx = require('rxjs/Rx');
 const huobitrade1 = require('./huobitrade.js');
 const biantrade = require('./biantrade.js')
 const tradeConfig = require('./trade_config');
@@ -13,6 +13,11 @@ async function main() {
     huobi = new huobitrade1();
     bian = new biantrade();
     config = new tradeConfig();
+    Rx.Observable.of(1, 2, 3).subscribe(
+        function (count) {
+            console.log(count);
+        }
+    );
     while (flag) {
         try {
             await fetchTicker(config.symbol);
