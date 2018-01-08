@@ -7,6 +7,9 @@ const log = require('ololog')
 const symbol_etc2usdt = 'ETC/USDT'
 const symbol_etc2btc = 'ETC/BTC'
 const huobi = require('./huobitrade.js')
+var Rx = require('rxjs/Rx');
+
+
 const key = require('./exchange_config').HUOBI_KEY;
 const secret = require('./exchange_config').HUOBI_SECRET;
 require('ansicolor').nice;
@@ -37,7 +40,7 @@ module.exports = class huobitrade {
      * 获取当前行情
      * @param symbol
      */
-    async  fetchTicker(symbol) {
+    async fetchTicker(symbol) {
         return await this.exchange.fetchTicker(symbol);
     }
 

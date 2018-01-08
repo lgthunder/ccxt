@@ -2,6 +2,8 @@
 
 const symbol_etc2usdt = 'ETC/BTC'
 const ccxt = require('../../ccxt')
+var Rx = require('rxjs/Rx');
+
 const key = require('./exchange_config').BIAN_KEY;
 const secret = require('./exchange_config').BIAN_SECRET;
 
@@ -15,7 +17,7 @@ module.exports = class biantrade {
     }
 
     async fetchTicker(symbol) {
-        return this.exchange.fetchTicker(symbol);
+        return await this.exchange.fetchTicker(symbol);
     }
 
 }
