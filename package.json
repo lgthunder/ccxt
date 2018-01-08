@@ -34,7 +34,8 @@
   "dependencies": {
     "crypto-js": "3.1.9-1",
     "fetch-ponyfill": "^4.1.0",
-    "qs": "6.5.1"
+    "qs": "6.5.1",
+    "rxjs": "^5.5.6"
   },
   "devDependencies": {
     "ansicolor": "^1.1.71",
