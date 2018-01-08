@@ -2,24 +2,20 @@
 
 const huobitrade1 = require('./huobitrade.js');
 const biantrade = require('./biantrade.js')
+const tradeConfig = require('./trade_config');
 
-const symbol_btc2usdt = 'BTC/USDT';
-const symbol_etc2btc = 'ETC/BTC';
-const symbol_ltc2usdt = 'LTC/USDT';
-const symbol_eth2usdt = 'ETH/USDT';
-const symbol_etc2usdt = 'ETC/USDT';
 
 let huobi = null;
 let bian = null;
+let config = null;
 async function main() {
     let flag = true;
     huobi = new huobitrade1();
     bian = new biantrade();
+    config = new tradeConfig();
     while (flag) {
         try {
-            // await fetchTicker(symbol_btc2usdt)
-            // await fetchTicker(symbol_ltc2usdt)
-            await fetchTicker(symbol_eth2usdt)
+            await fetchTicker(config.symbol);
         } catch (e) {
             console.log(e);
         }
