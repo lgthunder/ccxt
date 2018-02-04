@@ -21,8 +21,8 @@ console.log("server is runing at 127.0.0.1:8191");
 test();
 
 async function test() {
-    let resp = await offsetMa5Test();
-    // resp = sorft(resp);
+    let resp = await offsetMa5();
+    resp = sorft(resp);
     console.log(resp);
 }
 
