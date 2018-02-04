@@ -22,7 +22,7 @@ test();
 
 async function test() {
     let resp = await offsetMa5Test();
-    resp = sorft(resp);
+    // resp = sorft(resp);
     console.log(resp);
 }
 
