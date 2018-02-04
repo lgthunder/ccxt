@@ -80,6 +80,13 @@ module.exports = class huobitrade {
         return await this.exchange.fetchOrders(symbol, '', '', {'status': status});
     }
 
+    async fetchKline(symbol, period, size) {
+        return await this.exchange.fetchKline(symbol, period, size);
+    }
+
+    async loadMarkets() {
+        return await this.exchange.fetchMarkets();
+    }
 
     async  fetchOhlcv() {
         let index = 4 // [ timestamp, open, high, low, close, volume ]

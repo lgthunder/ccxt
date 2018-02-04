@@ -363,6 +363,17 @@ module.exports = class huobipro extends Exchange {
         }, params));
     }
 
+    async fetchKline(symbol, period, size) {
+        await this.loadMarkets();
+        let market = this.market(symbol);
+        let response = await this.marketGetHistoryKline(this.extend({
+            'symbol': market['id'],
+            'period': period,
+            'size': size, // max = 2000
+        }, {}));
+        return response;
+    }
+
     parseOrderStatus(status) {
         if (status == 'partial-filled') {
             return 'open';
