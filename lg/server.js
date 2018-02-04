@@ -21,7 +21,7 @@ console.log("server is runing at 127.0.0.1:8191");
 test();
 
 async function test() {
-    let resp = await offsetMa5();
+    let resp = await offsetMa5Test();
     resp = sorft(resp);
     console.log(resp);
 }
@@ -38,6 +38,20 @@ function sorft(arr) {
         }
     }
     return arr;
+}
+
+async function offsetMa5Test() {
+    let huobiTrade = new trade();
+    let array = await huobiTrade.fetchUsdtSymbol();
+    let result = new Array();
+    let p = new array();
+    for (let index in array) {
+        let ma = huobiTrade.getMa5(array[index]);
+        p[index] = ma;
+    }
+    Promise.all(p).then(function (result) {
+        console.log(result);
+    })
 }
 
 async function offsetMa5() {
