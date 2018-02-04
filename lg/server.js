@@ -52,6 +52,7 @@ async function offsetMa5Test() {
     Promise.all(p).then(function (result) {
         console.log(result);
     })
+    return
 }
 
 async function offsetMa5() {
