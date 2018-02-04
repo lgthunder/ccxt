@@ -44,7 +44,7 @@ async function offsetMa5Test() {
     let huobiTrade = new trade();
     let array = await huobiTrade.fetchUsdtSymbol();
     let result = new Array();
-    let p = new array();
+    let p = new Array();
     for (let index in array) {
         let ma = huobiTrade.getMa5(array[index]);
         p[index] = ma;
