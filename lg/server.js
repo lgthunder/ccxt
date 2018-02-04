@@ -67,6 +67,7 @@ async function offsetMa5() {
         let price = ma.current.toFixed(4)
         let ma5 = ma.ma5.toFixed(4);
         result[index] = {symbol, offset, ma5, price}
+        console.log(result[index]);
     }
     return result;
 

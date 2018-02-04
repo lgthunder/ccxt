@@ -92,6 +92,7 @@ module.exports = class huobitrade {
     async  getMa5(symbol) {
         console.log("fetch :  " + symbol);
         let result = await this.huobi.fetchKline(symbol, '1day', 6);
+        console.log("fetch  finish :  " + symbol);
         let amount = 0;
         let index = 0;
         let data = result["data"];

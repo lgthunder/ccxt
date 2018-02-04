@@ -85,7 +85,7 @@ module.exports = class huobitrade {
     }
 
     async loadMarkets() {
-        return await this.exchange.fetchMarkets();
+        return await this.exchange.loadMarkets();
     }
 
     async  fetchOhlcv() {
