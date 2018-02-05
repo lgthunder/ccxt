@@ -84,15 +84,29 @@ module.exports = class huobitrade {
         return usdtArray;
     }
 
+
+    async fetchBtcSymbol() {
+        let result = await this.huobi.loadMarkets();
+        let btcArray = new Array();
+        let index = 0;
+        for (let sy in result) {
+            let symbol = result[sy].symbol;
+            if (symbol.indexOf("BTC") > 1) {
+                btcArray[index] = symbol;
+                index = index + 1;
+            }
+        }
+        return btcArray;
+    }
+
     /**
      *获取ma5和当前价格
      * @param symbol
      * @returns {{ma5: number, current: *}}
      */
-    async  getMa5(symbol) {
+    async  getUsdtMa5(symbol) {
         console.log("fetch :  " + symbol);
         let result = await this.huobi.fetchKline(symbol, '1day', 6);
-        console.log("fetch  finish :  " + symbol);
         let amount = 0;
         let index = 0;
         let data = result["data"];
@@ -102,8 +116,132 @@ module.exports = class huobitrade {
             amount = amount + data[day].close;
             index = index + 1;
         }
+        let preMa5 = amount / index;
+        //ma5
+        amount = 0;
+        for (let day in data) {
+            if (day == index) break;
+            amount = amount + data[day].close;
+        }
         let ma5 = amount / index;
-        return {ma5, current};
+
+        return {preMa5, ma5, current};
+    }
+
+
+    async getOffsetBtcMa5(onNext) {
+        let array = await this.fetchBtcSymbol();
+        let btcMa5 = await this.getBtcMa5();
+        let result = [];
+        let p = [];
+        for (let index in array) {
+            try {
+                // if (index > 5) break;
+                p.push(this.getMa5(array[index], btcMa5))
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        let sorft = this.sorft;
+        Promise.all(p).then(function (arr) {
+            console.log(arr)
+            for (let index in arr) {
+                let ma = arr[index];
+                if (!ma) continue
+                let percent = (ma.ma5 - ma.current) / ma.current * 100;
+                let symbol = array[index];
+                let offset = percent.toFixed(2);
+                let price = ma.current.toFixed(4)
+                let ma5 = ma.ma5.toFixed(4);
+                let preMa5 = ma.preMa5.toFixed(4);
+                let fallRate = (((preMa5 / ma5) - 1) * 100).toFixed(2);
+                result.push({symbol, offset, fallRate, preMa5, ma5, price});
+            }
+            onNext(sorft(result));
+        })
+    }
+
+
+    async getBtcMa5() {
+        let result = await this.huobi.fetchKline('BTC/USDT', '1day', 6);
+        return result["data"];
+    }
+
+    async getMa5(symbol, btcMa5) {
+        console.log("fetch :  " + symbol);
+        try {
+            let result = await this.huobi.fetchKline(symbol, '1day', 6);
+            let amount = 0;
+            let index = 0;
+            let data = result["data"];
+            let current = data[0].close * btcMa5[0].close;
+            for (let day in data) {
+                if (day == 0) continue;
+                amount = amount + data[day].close * btcMa5[day].close;
+                index = index + 1;
+            }
+            let preMa5 = amount / index;
+            //ma5
+            amount = 0;
+            for (let day in data) {
+                if (day == index) break;
+                amount = amount + data[day].close * btcMa5[day].close;
+            }
+            let ma5 = amount / index;
+
+            return {preMa5, ma5, current}
+        } catch (e) {
+            console.log(e);
+        }
+
+
+    }
+
+    async  getOffsetMa5(onNext) {
+        let array = await this.fetchUsdtSymbol();
+        let p = [];
+        let result = new Array();
+        for (let index in array) {
+            try {
+                p.push(this.getUsdtMa5(array[index]));
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        let sorft = this.sorft;
+        Promise.all(p).then(function (arr) {
+            for (let index in arr) {
+                let ma = arr[index];
+                if (!ma) continue
+                let percent = (ma.ma5 - ma.current) / ma.current * 100;
+                let symbol = array[index];
+                let offset = percent.toFixed(2);
+                let price = ma.current.toFixed(4)
+                let ma5 = ma.ma5.toFixed(4);
+                let preMa5 = ma.preMa5.toFixed(4);
+                let fallRate = (((preMa5 / ma5) - 1) * 100).toFixed(2);
+                result[index] = {symbol, offset, fallRate, preMa5, ma5, price}
+            }
+            result = sorft(result);
+            onNext(result);
+        })
+
+        // return result;
+
+    }
+
+    sorft(arr) {
+        var len = arr.length;
+        for (var i = 0; i < len; i++) {
+            for (var j = 0; j < len - 1 - i; j++) {
+                if (parseInt(arr[j].offset) < parseInt(arr[j + 1].offset)) {        // 相邻元素两两对比
+                    var temp = arr[j + 1];        // 元素交换
+                    arr[j + 1] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        return arr;
     }
 }
 

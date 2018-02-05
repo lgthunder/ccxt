@@ -353,7 +353,6 @@ module.exports = class Exchange {
     }
 
     fetch(url, method = 'GET', headers = undefined, body = undefined) {
-
         if (isNode && this.userAgent) {
             if (typeof this.userAgent == 'string')
                 headers = extend({'User-Agent': this.userAgent}, headers)
@@ -385,10 +384,8 @@ module.exports = class Exchange {
     }
 
     async fetch2(path, api = 'public', method = 'GET', params = {}, headers = undefined, body = undefined) {
-
         if (this.enableRateLimit)
             await this.throttle()
-
         let request = this.sign(path, api, method, params, headers, body)
         return this.fetch(request.url, request.method, request.headers, request.body)
     }
