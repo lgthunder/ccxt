@@ -14,12 +14,3 @@ async function test() {
         console.log("数据: " + resp.length + " 耗时:" + duration + "s");
     });
 }
-
-async function btcTest() {
-    let huobi = new trade();
-    let resp = await huobi.getOffsetBtcMa5();
-    for (let index in resp) {
-        let ma5 = resp[index];
-        console.log(ma5.symbol + " " + ma5.offset + "%  " + ma5.fallRate + "%  " + ma5.preMa5 + " " + ma5.ma5 + " " + ma5.price);
-    }
-}
