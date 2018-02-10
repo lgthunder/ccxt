@@ -84,7 +84,28 @@ module.exports = class huobitrade {
         return usdtArray;
     }
 
+    /**
+     * 获取usdt交易对
+     * @returns {Array} [{},...]
+     */
+    async  fetchUsdtSymbolObj() {
+        let result = await this.huobi.loadMarkets();
+        let usdtArray = new Array();
+        let index = 0;
+        for (let sy in result) {
+            let symbol = result[sy].symbol;
+            if (symbol.indexOf("USDT") > 0) {
+                usdtArray[index] = result[sy];
+                index = index + 1;
+            }
+        }
+        return usdtArray;
+    }
 
+    /**
+     *
+     * @returns {Array} [BTC/USDT,...]
+     */
     async fetchBtcSymbol() {
         let result = await this.huobi.loadMarkets();
         let btcArray = new Array();
@@ -100,6 +121,24 @@ module.exports = class huobitrade {
     }
 
     /**
+     *
+     * @returns {Array} [{},...]
+     */
+    async fetchBtcSymbolObj() {
+        let result = await this.huobi.loadMarkets();
+        let btcArray = new Array();
+        let index = 0;
+        for (let sy in result) {
+            let symbol = result[sy].symbol;
+            if (symbol.indexOf("BTC") > 1) {
+                btcArray[index] = result[sy];
+                index = index + 1;
+            }
+        }
+        return btcArray;
+    }
+
+    /**
      *获取ma5和当前价格
      * @param symbol
      * @returns {{ma5: number, current: *}}
@@ -107,6 +146,7 @@ module.exports = class huobitrade {
     async  getUsdtMa5(symbol) {
         console.log("fetch :  " + symbol);
         let result = await this.huobi.fetchKline(symbol, '1day', 6);
+        console.log(result);
         let amount = 0;
         let index = 0;
         let data = result["data"];
@@ -124,7 +164,6 @@ module.exports = class huobitrade {
             amount = amount + data[day].close;
         }
         let ma5 = amount / index;
-
         return {preMa5, ma5, current};
     }
 
@@ -167,6 +206,12 @@ module.exports = class huobitrade {
         return result["data"];
     }
 
+    /**
+     * 以btc计价 ma5
+     * @param symbol
+     * @param btcMa5
+     * @returns {{preMa5: number, ma5: number, current: number}}
+     */
     async getMa5(symbol, btcMa5) {
         console.log("fetch :  " + symbol);
         try {
@@ -229,6 +274,53 @@ module.exports = class huobitrade {
         // return result;
 
     }
+
+
+    async getAccount() {
+        return await this.huobi.fetchAccount();
+    }
+
+    async fetchBalance() {
+        return await  this.huobi.fetchBalance();
+    }
+
+    async getKline(symbol, period, count) {
+        let result = await this.huobi.fetchKline(symbol, period, count);
+        return result;
+    }
+
+    async getMyPosition() {
+        let symbolArr = await this.fetchUsdtSymbolObj();
+        let re = await this.fetchBalance();
+        let coinArry = re.info.data.list;
+        for (let index in coinArry) {
+            let coin = coinArry[index];
+            if (coin.balance > 0.01) {
+                if (coin.currency == 'usdt') {
+                    console.log(coin.currency + " : " + coin.balance);
+                    continue;
+                }
+                let symbol = this.findSymbol(coin.currency, symbolArr);
+                if (symbol) {
+                    let ticker = await this.huobi.fetchTicker(symbol);
+                    let amount = coin.balance * ticker.close;
+                    console.log(symbol + " : " + amount.toFixed(2));
+                }
+            }
+        }
+    }
+
+
+    findSymbol(symbol, arr) {
+        for (let index in arr) {
+            let obj = arr[index];
+            if (obj.id.indexOf(symbol) >= 0) {
+                return obj.symbol;
+            }
+        }
+        // return symbol;
+    }
+
 
     sorft(arr) {
         var len = arr.length;

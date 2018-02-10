@@ -10,19 +10,19 @@ const huobi = require('./huobitrade.js')
 var Rx = require('rxjs/Rx');
 
 
-const key = require('./exchange_config').HUOBI_KEY;
+const exchangeConfig = require('./exchange_config');
 const secret = require('./exchange_config').HUOBI_SECRET;
 require('ansicolor').nice;
 
 module.exports = class huobitrade {
 
     constructor() {
+        let config = new exchangeConfig();
         this.exchange = new ccxt.huobipro({
-            apiKey: key,
-            secret: secret,
+            apiKey: config.HUOBI_KEY,
+            secret: config.HUOBI_SECRECT,
             enableRateLimit: true,
         })
-
     }
 
 
@@ -86,6 +86,14 @@ module.exports = class huobitrade {
 
     async loadMarkets() {
         return await this.exchange.loadMarkets();
+    }
+
+    async fetchAccount() {
+        return await this.exchange.fetchAccounts();
+    }
+
+    async fetchBalance() {
+        return await  this.exchange.fetchBalance();
     }
 
     async  fetchOhlcv() {
