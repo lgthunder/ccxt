@@ -48,6 +48,7 @@ http.createServer(function (req, res) {
 //当数据传输结束触发end
         request.on("end", function () {
 //把data数据返回前端
+            console.log(data.length);
             res.end(data);
         });
     }).on("error", function (err) {
