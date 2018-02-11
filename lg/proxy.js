@@ -22,8 +22,16 @@ http.createServer(function (req, res) {
     if (!myUrl) {
         return;
     }
+
+    let connection;
+    if (myUrl.indexOf('https') > 0) {
+        connection = https;
+    } else {
+        connection = http;
+    }
+
 //开始请求数据  http.get()方法xva
-    https.get(myUrl, function (request) {
+    connection.get(myUrl, function (request) {
 //监听myUrl地址的请求过程
 //设置编码格式
         request.setEncoding("utf8");
