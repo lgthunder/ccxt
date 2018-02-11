@@ -22,6 +22,7 @@ module.exports = class huobitrade {
             apiKey: config.HUOBI_KEY,
             secret: config.HUOBI_SECRECT,
             enableRateLimit: true,
+            proxy: config.proxy,
         })
     }
 
