@@ -25,7 +25,7 @@ http.createServer(function (req, res) {
 
     let connection;
     console.log(myUrl);
-    if (myUrl.indexOf('https') > 0) {
+    if (myUrl.indexOf('https') >= 0) {
         connection = https;
         console.log('https');
     } else {
