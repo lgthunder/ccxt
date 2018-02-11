@@ -24,10 +24,13 @@ http.createServer(function (req, res) {
     }
 
     let connection;
+    console.log(myUrl);
     if (myUrl.indexOf('https') > 0) {
         connection = https;
+        console.log('https');
     } else {
         connection = http;
+        console.log('http');
     }
 
 //开始请求数据  http.get()方法xva
