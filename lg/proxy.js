@@ -48,7 +48,9 @@ http.createServer(function (req, res) {
         request.on("end", function () {
 //把data数据返回前端
             console.log(data.length);
-            res.end(data);
+            res.end(data).on("close",function () {
+                
+            });
         });
     }).on("error", function (err) {
         console.log("请求myUrl地址出错！" + err.message);
