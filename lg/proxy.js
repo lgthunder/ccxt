@@ -3,9 +3,10 @@ const url = require("url");
 const qs = require("querystring");
 
 //用node中的http创建服务器 并传入两个形参
-http.createServer(function(req , res) {
+http.createServer(function (req, res) {
+    console.log(req);
 //设置请求头  允许所有域名访问 解决跨域
-    res.setHeader("Access-Control-Allow-Origin" , "*");
+    res.setHeader("Access-Control-Allow-Origin", "*");
 
 //获取地址中的参数
     var query = url.parse(req.url).query;
@@ -18,7 +19,7 @@ http.createServer(function(req , res) {
     var data = "";
 
 //开始请求数据  http.get()方法xva
-    http.get(myUrl,function (request) {
+    http.get(myUrl, function (request) {
 //监听myUrl地址的请求过程
 //设置编码格式
         request.setEncoding("utf8");
@@ -29,15 +30,15 @@ http.createServer(function(req , res) {
         });
 
 //当数据传输结束触发end
-        request.on("end" , function () {
+        request.on("end", function () {
 //把data数据返回前端
             res.end(data);
         });
-    }).on("error" , function () {
+    }).on("error", function () {
         console.log("请求myUrl地址出错！");
     });
-}).listen(8191,function(err){
-    if(!err){
+}).listen(8191, function (err) {
+    if (!err) {
         console.log("服务器启动成功，正在监听8191...");
     }
 });
