@@ -34,8 +34,8 @@ http.createServer(function (req, res) {
 //把data数据返回前端
             res.end(data);
         });
-    }).on("error", function () {
-        console.log("请求myUrl地址出错！");
+    }).on("error", function (err) {
+        console.log("请求myUrl地址出错！" + err.message);
     });
 }).listen(8191, function (err) {
     if (!err) {
