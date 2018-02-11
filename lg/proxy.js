@@ -1,4 +1,5 @@
-const http = require("https");
+const http = require("http");
+const https = require("https");
 const url = require("url");
 const qs = require("querystring");
 
@@ -22,7 +23,7 @@ http.createServer(function (req, res) {
         return;
     }
 //开始请求数据  http.get()方法xva
-    http.get(myUrl, function (request) {
+    https.get(myUrl, function (request) {
 //监听myUrl地址的请求过程
 //设置编码格式
         request.setEncoding("utf8");
