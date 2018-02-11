@@ -10,9 +10,10 @@ http.createServer(function (req, res) {
 
 //获取地址中的参数
     var query = url.parse(req.url).query;
-    console.log(query);
+
 //用qs模块的方法  把地址中的参数转变成对象 方便获取
     var queryObj = qs.parse(query);
+    console.log(queryObj);
 //获取前端传来的myUrl=后面的内容　　GET方式传入的数据
     var myUrl = queryObj.url;
 //创建变量保存请求到的数据
