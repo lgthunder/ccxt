@@ -41,7 +41,6 @@ http.createServer(function (req, res) {
 
 //数据传输过程中会不断触发data信号
         request.on("data", function (response) {
-            console.log(data);
             data += response;
         });
 
