@@ -1,3 +1,7 @@
+const http = require("http");
+const url = require("url");
+const qs = require("querystring");
+
 //用node中的http创建服务器 并传入两个形参
 http.createServer(function(req , res) {
 //设置请求头  允许所有域名访问 解决跨域
