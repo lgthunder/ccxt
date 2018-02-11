@@ -4,17 +4,17 @@ const qs = require("querystring");
 
 //用node中的http创建服务器 并传入两个形参
 http.createServer(function (req, res) {
-    console.log(req);
+
 //设置请求头  允许所有域名访问 解决跨域
     res.setHeader("Access-Control-Allow-Origin", "*");
 
 //获取地址中的参数
     var query = url.parse(req.url).query;
-
+    console.log(query);
 //用qs模块的方法  把地址中的参数转变成对象 方便获取
     var queryObj = qs.parse(query);
 //获取前端传来的myUrl=后面的内容　　GET方式传入的数据
-    var myUrl = queryObj.myUrl;
+    var myUrl = req.url;
 //创建变量保存请求到的数据
     var data = "";
 
