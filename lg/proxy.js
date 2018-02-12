@@ -22,10 +22,10 @@ http.createServer(function (req, res) {
     if (!myUrl) {
         return;
     }
-    res.on("close", function () {
+    req.on("close", function () {
         console.log("close");
     });
-    res.on("error", function (err) {
+    req.on("error", function (err) {
         console.log(err.message);
     })
 
@@ -54,7 +54,7 @@ http.createServer(function (req, res) {
         request.on("end", function () {
 //把data数据返回前端
             console.log(data.length);
-            // res.end(data)
+            res.end(data)
         });
     }).on("error", function (err) {
         console.log("请求myUrl地址出错！" + err.message);
