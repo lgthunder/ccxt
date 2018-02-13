@@ -24,14 +24,14 @@ http.createServer(function (req, res) {
     }
     req.on("close", function () {
         console.log("close");
-        console.log(new Date().now());
+        console.log(new Date().getTime());
     });
     req.on("error", function (err) {
         console.log(err.message);
     })
     res.on("close", function () {
         console.log("close");
-        console.log(new Date().now());
+        console.log(new Date().getTime());
     });
     res.on("error", function (err) {
         console.log(err.message);
@@ -56,14 +56,14 @@ http.createServer(function (req, res) {
 //数据传输过程中会不断触发data信号
         request.on("data", function (response) {
             data += response;
-            console.log(new Date().now());
+            console.log(new Date().getTime());
         });
 
 //当数据传输结束触发end
         request.on("end", function () {
 //把data数据返回前端
             console.log(data.length);
-            console.log(new Date().now());
+            console.log(new Date().getTime());
             res.end(data)
         });
     }).on("error", function (err) {
