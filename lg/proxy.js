@@ -28,6 +28,12 @@ http.createServer(function (req, res) {
     req.on("error", function (err) {
         console.log(err.message);
     })
+    res.on("close", function () {
+        console.log("close");
+    });
+    res.on("error", function (err) {
+        console.log(err.message);
+    })
 
     let connection;
     console.log(myUrl);
@@ -62,5 +68,7 @@ http.createServer(function (req, res) {
 }).listen(8191, function (err) {
     if (!err) {
         console.log("服务器启动成功，正在监听8191...");
+    } else {
+        console.log(err.message);
     }
-});
+    );
