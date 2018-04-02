@@ -6,7 +6,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-const SYMBOL_BTC = '"BTC/USDT"';
+const SYMBOL_BTC = 'BTC/USDT';
 function main() {
     let re = process.argv.splice(2);
     if (re.length > 0) {
