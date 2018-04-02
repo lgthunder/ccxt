@@ -341,6 +341,9 @@ module.exports = class huobipro extends Exchange {
             throw new ExchangeError(this.id + ' fetchOrders() requires a symbol parameter');
         this.load_markets();
         let market = this.market(symbol);
+        console.log(symbol)
+        console.log(market)
+        console.log(market['id'])
         let status = undefined;
         if ('type' in params) {
             status = params['type'];
@@ -356,7 +359,6 @@ module.exports = class huobipro extends Exchange {
         } else {
             throw new ExchangeError(this.id + ' fetchOrders() wrong type param or status param for spot market ' + symbol + '(0 or "open" for unfilled or partial filled orders, 1 or "closed" for filled orders)');
         }
-        console.log(market['id'])
         let response = await this.privateGetOrderOrders(this.extend({
             'symbol': market['id'],
             'states': status,
