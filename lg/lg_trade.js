@@ -41,8 +41,7 @@ function main() {
             case "give_order":
                 console.log(re[1], re[2], re[3], re[4])
                 let trade = calPosition(re[1], re[2], re[3], re[4]);
-                rl.question('What do you think of Node.js? ', (answer) => {
-                    // TODO: Log the answer in a database
+                rl.question('输入 《 yes 》 确认操作,开始挂单 ', (answer) => {
                     if (answer == 'yes') {
                         let promises = []
                         for (let index in trade) {
@@ -56,7 +55,7 @@ function main() {
                             console.log(array);
                         })
                     } else {
-                        console.log(`Thank you for your valuable feedback: ${answer}`);
+                        console.log(`取消操作`);
                     }
                     rl.close();
                 });
