@@ -103,6 +103,7 @@ async function fetchOrders(status) {
         orders.push(order);
         consoleOrder(order);
     }
+    console.log(orders);
 }
 
 
