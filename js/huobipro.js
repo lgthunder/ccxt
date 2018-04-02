@@ -337,6 +337,7 @@ module.exports = class huobipro extends Exchange {
     }
 
     async fetchOrders(symbol = undefined, since = undefined, limit = undefined, params = {}) {
+        console.log(symbol);
         if (!symbol)
             throw new ExchangeError(this.id + ' fetchOrders() requires a symbol parameter');
         this.load_markets();
