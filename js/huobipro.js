@@ -303,7 +303,7 @@ module.exports = class huobipro extends Exchange {
         if (params) {
             count = 0;
         } else {
-            count = params.id;
+            count = params.index;
         }
         console.log(this.accounts);
         console.log(count);
