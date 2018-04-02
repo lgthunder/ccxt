@@ -456,10 +456,6 @@ module.exports = class huobipro extends Exchange {
         } else {
             account_index = 0;
         }
-        console.log(account_index)
-        console.log(amount)
-        console.log(this.accounts)
-        console.log(this.accounts[account_index]['id'])
         let order = {
             'account-id': this.accounts[account_index]['id'],
             'amount': this.amountToPrecision(symbol, amount),
