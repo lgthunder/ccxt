@@ -91,9 +91,26 @@ async function fetchOrders() {
     let orders = [];
     for (let index in result) {
         let info = result[index];
-        orders.push({id: info.id, time: info.datetime, type: info.type, price: info.price});
+        let order = {
+            id: info.id,
+            time: info.datetime,
+            type: info.type,
+            price: info.price,
+            amount: info.amount,
+            filled: info.filled,
+            remaining: info.remaining,
+            status: info.status
+        };
+        orders.push(order);
+        consoleOrder(order);
     }
     console.log(orders);
+}
+
+
+function consoleOrder(order) {
+    console.log("time: " + order.time + " id: " + order.id + " type: " + order.type + " price: " + order.price
+        + " amount: " + order.amount + " filled: " + order.filled + " remaining: " + order.remaining + " status " + order.status)
 }
 
 async function htAmountMa() {
