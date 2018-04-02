@@ -88,12 +88,12 @@ async function getMyPosition() {
 async function fetchOrders() {
     let huobi = new trade();
     let result = await huobi.fetchAllOrders("BTC/USDT", 0);
-    let order = [];
+    let orders = [];
     for (let index in result) {
         let info = result[index];
-        p.push({id: info.id, time: info.datetime, type: info.type, price: info.price});
+        orders.push({id: info.id, time: info.datetime, type: info.type, price: info.price});
     }
-    console.log(order);
+    console.log(orders);
 }
 
 async function htAmountMa() {
