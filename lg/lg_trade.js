@@ -113,8 +113,9 @@ function consoleOrder(order) {
         console.log(
             "time: " + order.datetime
             + " id: " + order.id
-            + " symbol: " + order.symbol
+            + " symbol: " + modifiedStr(order.info.symbol, 12)
             + " type: " + modifiedStr(order.type, 7)
+            + " side: " + modifiedStr(order.side, 6)
             + " price: " + modifiedNum(order.price)
             + " amount: " + modifiedNum(order.amount)
             + " filled: " + modifiedNum(order.filled)
@@ -126,8 +127,9 @@ function consoleOrder(order) {
         console.log(
             "time: " + order.datetime
             + " id: " + order.id
-            + " symbol: " + order.symbol
+            + " symbol: " + modifiedStr(order.info.symbol, 12)
             + " type: " + modifiedStr(order.type, 7)
+            + " side: " + modifiedStr(order.side, 6)
             + " price: " + modifiedNum(order.price)
             + " amount: " + modifiedNum(order.amount)
             + " filled: " + modifiedNum(order.filled)
