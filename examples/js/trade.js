@@ -366,7 +366,7 @@ module.exports = class huobitrade {
      * @param id
      */
     async  cancelOrder(id) {
-        return await this.huobi.editOrder(id)
+        return await this.huobi.cancelOrder(id)
     }
 
     /**
@@ -374,7 +374,7 @@ module.exports = class huobitrade {
      * @param id
      */
     async  fetchOrderById(id) {
-        return await this.huobi.fetchOrder(id)
+        return await this.huobi.fetchOrderById(id)
     }
 
 
@@ -384,7 +384,7 @@ module.exports = class huobitrade {
      * @param status 0 open  1 closed
      */
     async  fetchAllOrders(symbol, status) {
-        return await this.huobi.fetchOrders(symbol, status);
+        return await this.huobi.fetchAllOrders(symbol, status);
     }
 
     /**
