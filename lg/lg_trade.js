@@ -46,6 +46,9 @@ function main() {
                     if (answer == 'yes') {
                         let promises = []
                         for (let index in trade) {
+                            if (trade[index].amount == 0) {
+                                continue;
+                            }
                             let p = createMarginOrder(SYMBOL_BTC, trade[index].amount, trade[index].limit);
                             promises.push(p);
                         }
