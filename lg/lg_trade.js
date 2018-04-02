@@ -112,7 +112,7 @@ async function fetchOrders(status) {
 
 async function createMarginOrder() {
     let huobi = new trade();
-    let result = await huobi.createLimitBuyOrder("BTC/USDT", 0.001, 6700, 5);
+    let result = await huobi.createLimitBuyOrder("BTC/USDT", 0.001, 6700, 1);
     console.log(result);
 }
 
