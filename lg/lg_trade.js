@@ -33,7 +33,7 @@ function main() {
                 fetchOrders(re[1])
                 break
             case "co":
-                createMarginOrder();
+                createMarginOrder(SYMBOL_BTC, 0.001, 6000);
                 break;
             case "cancel_order":
                 // cancelOrder(re[1])
@@ -60,6 +60,10 @@ function main() {
                     }
                     rl.close();
                 });
+
+            case "cancel_all":
+                cancelAll();
+                break;
 
 
         }
@@ -140,13 +144,28 @@ async function fetchOrders(status) {
         orders.push(info);
         consoleOrder(info);
     }
+    return orders;
+}
+
+async function cancelAll() {
+    let orders = await   fetchOrders(0);
+    let promises = []
+    for (let index in orders) {
+        let p = cancelOrder(orders[index].id)
+        promises.push(p);
+    }
+    Promise.all(promises).then(function (array) {
+        console.log(array)
+    }).catch(function (err) {
+        console.log(err);
+    })
+
 }
 
 async function cancelOrder(id) {
     let huobi = new trade();
     let result = await huobi.cancelOrder(id);
-    console.log(result);
-
+    return result;
 }
 async function createMarginOrder(symbol, amount, price) {
     let huobi = new trade();
