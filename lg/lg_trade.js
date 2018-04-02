@@ -90,26 +90,52 @@ async function fetchOrders(status) {
     let orders = [];
     for (let index in result) {
         let info = result[index];
-        let order = {
-            id: info.id,
-            time: info.datetime,
-            type: info.type,
-            price: info.price,
-            amount: info.amount,
-            filled: info.filled,
-            remaining: info.remaining,
-            status: info.status
-        };
-        orders.push(order);
-        consoleOrder(order);
+        // let order = {
+        //     id: info.id,
+        //     time: info.datetime,
+        //     type: info.type,
+        //     symbol: info.symbol,
+        //     side: info.side,
+        //     price: info.price,
+        //     amount: info.amount,
+        //     filled: info.filled,
+        //     remaining: info.remaining,
+        //     status: info.status
+        // };
+        orders.push(info);
+        consoleOrder(info);
     }
-    console.log(orders);
 }
 
 
 function consoleOrder(order) {
-    console.log("time: " + order.time + " id: " + order.id + " type: " + modifiedStr(order.type, 7) + " price: " + modifiedNum(order.price)
-        + " amount: " + modifiedNum(order.amount) + " filled: " + modifiedNum(order.filled) + " remaining: " + modifiedNum(order.remaining) + " status " + modifiedStr(order.status, 7))
+    if (order.type == 'limit') {
+        console.log(
+            "time: " + order.datetime
+            + " id: " + order.id
+            + " symbol: " + order.symbol
+            + " type: " + modifiedStr(order.type, 7)
+            + " price: " + modifiedNum(order.price)
+            + " amount: " + modifiedNum(order.amount)
+            + " filled: " + modifiedNum(order.filled)
+            + " remaining: " + modifiedNum(order.remaining)
+            + " average: " + modifiedNum(order.average)
+            + " cost: " + modifiedNum(order.cost)
+            + " status " + modifiedStr(order.status, 7))
+    } else {
+        console.log(
+            "time: " + order.datetime
+            + " id: " + order.id
+            + " symbol: " + order.symbol
+            + " type: " + modifiedStr(order.type, 7)
+            + " price: " + modifiedNum(order.price)
+            + " amount: " + modifiedNum(order.amount)
+            + " filled: " + modifiedNum(order.filled)
+            + " remaining: " + modifiedNum(order.remaining)
+            + " average: " + modifiedNum(order.average)
+            + " cost: " + modifiedNum(order.cost)
+            + " status " + modifiedStr(order.status, 7))
+    }
 }
 
 function modifiedNum(str) {
