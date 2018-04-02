@@ -350,5 +350,14 @@ module.exports = class huobitrade {
         }
         return arr;
     }
+
+    async fetchAccount() {
+        return await this.huobi.fetchAccounts();
+    }
+
+    // async fetchBalance() {
+    //     return await  this.huobi.fetchBalance();
+    // }
+
 }
 

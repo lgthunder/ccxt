@@ -54,7 +54,7 @@ async function fetchBtcMa5() {
 
 async function fetchAccount() {
     let huobi = new trade();
-    let result = await huobi.fetchAccount();
+    let result = await huobi.getAccount();
     console.log(result);
 
 }
