@@ -449,8 +449,10 @@ module.exports = class huobipro extends Exchange {
         await this.loadAccounts();
         let market = this.market(symbol);
         let account_index = 0;
+        let source = '';
         if (params.index) {
             account_index = params.index;
+            source = 'margin-api';
         } else {
             account_index = 0;
         }
@@ -461,6 +463,7 @@ module.exports = class huobipro extends Exchange {
             'amount': this.amountToPrecision(symbol, amount),
             'symbol': market['id'],
             'type': side + '-' + type,
+            'source': source,
         };
         if (type == 'limit')
             order['price'] = this.priceToPrecision(symbol, price);
