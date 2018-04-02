@@ -301,9 +301,9 @@ module.exports = class huobipro extends Exchange {
         await this.loadAccounts();
         let count = 0;
         if (params) {
-            count = 0;
-        } else {
             count = params.index;
+        } else {
+            count = 0;
         }
         console.log(this.accounts[count]);
         console.log(count);
