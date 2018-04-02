@@ -295,8 +295,8 @@ module.exports = class huobitrade {
         return await this.huobi.fetchAccount();
     }
 
-    async fetchBalance() {
-        return await  this.huobi.fetchBalance();
+    async fetchBalance(position) {
+        return await  this.huobi.fetchBalance(position);
     }
 
     async getKline(symbol, period, count) {
