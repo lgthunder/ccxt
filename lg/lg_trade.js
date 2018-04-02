@@ -18,11 +18,12 @@ function main() {
             case "ht":
                 htAmountMa();
                 break;
-            case "1":
-                fetchAccount();
+            case "margin_btc":
+                fetchMarginBTC()
                 break;
-            case "2":
-                fetchBalance();
+            case "spot":
+                fetchSpot()
+                break;
 
         }
     }
@@ -61,10 +62,18 @@ async function fetchAccount() {
 
 }
 
-async function fetchBalance() {
+async function fetchSpot() {
+    fetchBalance(0)
+}
+
+async function fetchMarginBTC() {
+    let result = await fetchBalance(1);
+    console.log(result.info.data.list);
+}
+
+async function fetchBalance(position) {
     let huobi = new trade();
-    let result = await huobi.fetchBalance(5);
-    console.log(result);
+    return await huobi.fetchBalance(position);
 }
 
 async function getMyPosition() {
