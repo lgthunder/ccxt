@@ -351,13 +351,51 @@ module.exports = class huobitrade {
         return arr;
     }
 
-    async fetchAccount() {
-        return await this.huobi.fetchAccounts();
+    /**
+     * 限价购买
+     * @param symbol 交易对
+     * @param amount
+     * @param price
+     */
+    async  createLimitBuyOrder(symbol, amount, price) {
+        return await this.huobi.createLimitBuyOrder(symbol, amount, price)
     }
 
-    // async fetchBalance() {
-    //     return await  this.huobi.fetchBalance();
-    // }
+    /**
+     * 取消订单
+     * @param id
+     */
+    async  cancelOrder(id) {
+        return await this.huobi.editOrder(id)
+    }
+
+    /**
+     * 根据id 获取订单详情
+     * @param id
+     */
+    async  fetchOrderById(id) {
+        return await this.huobi.fetchOrder(id)
+    }
+
+
+    /**
+     * 获取所有订单
+     * @param symbol
+     * @param status 0 open  1 closed
+     */
+    async  fetchAllOrders(symbol, status) {
+        return await this.huobi.fetchOrders(symbol, status);
+    }
+
+    /**
+     *  限价卖出
+     * @param symbol 交易队 例如: 'ETC/USDT'
+     * @param amount 数量
+     * @param price  价格
+     */
+    async createLimitSellOrder(symbol, amount, price) {
+        return await this.huobi.createLimitSellOrder(symbol, amount, price)
+    }
 
 }
 

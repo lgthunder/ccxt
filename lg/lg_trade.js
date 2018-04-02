@@ -24,6 +24,9 @@ function main() {
             case "spot":
                 fetchSpot()
                 break;
+            case "fetchOrders":
+                fetchOrders()
+                break
 
         }
     }
@@ -68,7 +71,7 @@ async function fetchSpot() {
 
 async function fetchMarginBTC() {
     let result = await fetchBalance(1);
-    console.log(result.info.data.list);
+    console.log(result);
 }
 
 async function fetchBalance(position) {
@@ -80,7 +83,12 @@ async function getMyPosition() {
     let huobi = new trade();
     let result = await huobi.getMyPosition();
     console.log(result);
+}
 
+async function fetchOrders() {
+    let huobi = new trade();
+    let result = await huobi.fetchAllOrders("BTC/USDT", 0);
+    console.log(result);
 }
 
 async function htAmountMa() {

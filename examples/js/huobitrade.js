@@ -81,6 +81,12 @@ module.exports = class huobitrade {
         return await this.exchange.fetchOrders(symbol, '', '', {'status': status});
     }
 
+    async fetchMarginOrders(symbol, status) {
+
+        // return await this.exchange.fetchOrders(symbol, '', '', {'status': status,'id':this.exchange.});
+    }
+
+
     async fetchKline(symbol, period, size) {
         return await this.exchange.fetchKline(symbol, period, size);
     }
