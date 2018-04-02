@@ -30,6 +30,9 @@ function main() {
             case "co":
                 createMarginOrder();
                 break;
+            case "cancel_order":
+                cancelOrder(re[1])
+                break;
         }
     }
 }
@@ -99,7 +102,7 @@ async function fetchOrders(status) {
         //     type: info.type,
         //     symbol: info.symbol,
         //     side: info.side,
-        //     price: info.price,
+        //     price: info.price,O
         //     amount: info.amount,
         //     filled: info.filled,
         //     remaining: info.remaining,
@@ -108,6 +111,13 @@ async function fetchOrders(status) {
         orders.push(info);
         consoleOrder(info);
     }
+}
+
+async function cancelOrder(id) {
+    let huobi = new trade();
+    let result = await huobi.cancelOrder(id);
+    console.log(result);
+
 }
 
 async function createMarginOrder() {
