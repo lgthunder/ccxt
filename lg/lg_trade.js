@@ -122,7 +122,7 @@ async function cancelOrder(id) {
 
 async function createMarginOrder() {
     let huobi = new trade();
-    let result = await huobi.createLimitBuyOrder("BTC/USDT", 0.001, 6700, 1);
+    let result = await huobi.createMarginLimitBuyOrder("BTC/USDT", 0.001, 6700);
     console.log(result);
 }
 
