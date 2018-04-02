@@ -306,6 +306,7 @@ module.exports = class huobipro extends Exchange {
             count = params.id;
         }
         console.log(this.accounts);
+        console.log(this.accounts[count]);
         let response = await this.privateGetAccountAccountsIdBalance(this.extend({
             'id': this.accounts[count]['id'],
         }, params));
