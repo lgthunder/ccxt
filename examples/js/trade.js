@@ -275,6 +275,21 @@ module.exports = class huobitrade {
 
     }
 
+    async getMarketChangeRate(symbol, total) {
+        let result = await this.huobi.fetchKline(symbol, '1day', 6);
+        let amount = 0;
+        let arr = [];
+        console.log(symbol);
+        let data = result["data"];
+        for (let index in data) {
+            let day = data[index];
+            amount = amount + day.amount;
+            console.log((day.amount / total).toFixed(2));
+            arr.push((day.amount / total).toFixed(2))
+        }
+        return arr;
+    }
+
 
     async getAccount() {
         return await this.huobi.fetchAccount();

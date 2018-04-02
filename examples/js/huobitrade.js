@@ -22,7 +22,7 @@ module.exports = class huobitrade {
             apiKey: config.HUOBI_KEY,
             secret: config.HUOBI_SECRECT,
             enableRateLimit: true,
-            proxy: config.proxy,
+            // proxy: config.proxy,
         })
     }
 
@@ -138,8 +138,8 @@ function main() {
     // console.log(await exchange.fetchBalance())
 
     // fetchAllOrders(symbol_etc2usdt, '0')
-    // createLimitSellOrder(symbol_etc2usdt, '0.01', '60')
-    // createLimitBuyOrder(symbol_etc2usdt, '0.01', '10')
+    createLimitSellOrder(symbol_etc2usdt, '0.01', '60')
+    createLimitBuyOrder(symbol_etc2usdt, '0.01', '10')
     // fetchOrderById('611719531')
     // cancelOrder('612567481')
     // let markets = await exchange.fetchMarkets();
