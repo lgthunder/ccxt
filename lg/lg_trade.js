@@ -20,7 +20,9 @@ function main() {
                 break;
             case "1":
                 fetchAccount();
-                break
+                break;
+            case "2":
+                fetchBalance();
 
         }
     }
@@ -60,7 +62,9 @@ async function fetchAccount() {
 }
 
 async function fetchBalance() {
-
+    let huobi = new trade();
+    let result = await huobi.fetchBalance(5);
+    console.log(result);
 }
 
 async function getMyPosition() {

@@ -295,11 +295,18 @@ module.exports = class huobipro extends Exchange {
         return response['data'];
     }
 
+
     async fetchBalance(params = {}) {
         await this.loadMarkets();
         await this.loadAccounts();
+        let count = 0;
+        if (params) {
+            count = 0;
+        } else {
+            count = params.id;
+        }
         let response = await this.privateGetAccountAccountsIdBalance(this.extend({
-            'id': this.accounts[0]['id'],
+            'id': this.accounts[count]['id'],
         }, params));
         let balances = response['data']['list'];
         let result = {'info': response};
