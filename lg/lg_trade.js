@@ -1,7 +1,12 @@
 "use strict";
 const trade = require('../examples/js/trade.js');
+const readline = require('readline');
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
-
+const SYMBOL_BTC = '"BTC/USDT"';
 function main() {
     let re = process.argv.splice(2);
     if (re.length > 0) {
@@ -31,8 +36,29 @@ function main() {
                 createMarginOrder();
                 break;
             case "cancel_order":
-                cancelOrder(re[1])
+                // cancelOrder(re[1])
                 break;
+            case "give_order":
+                console.log(re[1], re[2], re[3], re[4])
+                let trade = calPosition(re[1], re[2], re[3], re[4]);
+                rl.question('What do you think of Node.js? ', (answer) => {
+                    // TODO: Log the answer in a database
+                    if (answer == 'yes') {
+                        let promises = []
+                        for (let index in trade) {
+                            let p = createMarginOrder(SYMBOL_BTC, trade[index].amount, trade[index].limit);
+                            promises.push(p);
+                        }
+                        Promise.all(promises).then(function (array) {
+                            console.log(array);
+                        })
+                    } else {
+                        console.log(`Thank you for your valuable feedback: ${answer}`);
+                    }
+                    rl.close();
+                });
+
+
         }
     }
 }
@@ -119,11 +145,9 @@ async function cancelOrder(id) {
     console.log(result);
 
 }
-
-async function createMarginOrder() {
+async function createMarginOrder(symbol, amount, price) {
     let huobi = new trade();
-    let result = await huobi.createMarginLimitBuyOrder("BTC/USDT", 0.001, 6700);
-    console.log(result);
+    return huobi.createMarginLimitBuyOrder(symbol, amount, price);
 }
 
 
@@ -200,4 +224,61 @@ async function htAmountMa() {
 
 }
 main();
+
+function calPosition(start_price, end_price, dollar, piece) {
+    let start = start_price;
+    let money = dollar;
+    let height = start_price - end_price;
+    let pieces = piece;
+    let unit = 0.001;
+    let count = height / pieces;
+    let degree = 2 * Math.PI / 360;
+    let ration = 60 * degree;
+    let tan = Math.tan(ration);
+
+    let area = [];
+    let total = 0;
+    for (let index = 1; index <= count; index++) {
+        let bottom = 2 * index * pieces / tan;
+        let top = 2 * (index - 1) * pieces / tan;
+        let squ = (bottom + top) * pieces / 2;
+        area.push(squ);
+        total = squ + total;
+        // console.log(squ);
+    }
+    let cost = 0;
+    let bag = [];
+    for (let index in area) {
+        // console.log(area[index] / total);
+        bag.push(money * area[index] / total)
+        cost = cost + money * area[index] / total;
+    }
+    // console.log("cost:" + cost);
+    // console.log("total:" + count);
+
+    let trade = [];
+    let total_amount = 0;
+    let remainder = 0;
+
+    let total_cost = 0;
+    for (let index in bag) {
+        let cost = bag[index] + remainder;
+        let price = start - index * pieces;
+        let amount = cost / price;
+        let temp = amount % unit;
+        // console.log(amount)
+        amount = amount - temp;
+        remainder = cost - amount * price;
+        total_amount = total_amount + amount;
+        total_cost = total_cost + amount * price;
+        trade.push({limit: price, amount: amount.toFixed(4), cost: (amount * price).toFixed(2)})
+        // console.log({limit: price, amount: amount, cost: amount * price})
+    }
+    console.log(trade);
+    console.log("count: " + trade.length);
+    console.log("total_amount:" + total_amount.toFixed(4));
+    console.log("total_cost:" + total_cost.toFixed(2));
+    console.log("average : " + (total_cost / total_amount).toFixed(2));
+    return trade;
+}
 
