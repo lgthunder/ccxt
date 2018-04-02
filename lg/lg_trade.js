@@ -27,6 +27,9 @@ function main() {
             case "fetchOrders":
                 fetchOrders(re[1])
                 break
+            case "co":
+                createMarginOrder();
+                break;
         }
     }
 }
@@ -105,6 +108,12 @@ async function fetchOrders(status) {
         orders.push(info);
         consoleOrder(info);
     }
+}
+
+async function createMarginOrder() {
+    let huobi = new trade();
+    let result = await huobi.createLimitBuyOrder("BTC/USDT", 0.001, 6700, 5);
+    console.log(result);
 }
 
 

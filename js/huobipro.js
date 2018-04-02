@@ -341,9 +341,6 @@ module.exports = class huobipro extends Exchange {
             throw new ExchangeError(this.id + ' fetchOrders() requires a symbol parameter');
         await this.loadMarkets();
         let market = this.market(symbol);
-        console.log(symbol)
-        console.log(market)
-        console.log(market['id'])
         let status = undefined;
         if ('type' in params) {
             status = params['type'];
@@ -451,8 +448,14 @@ module.exports = class huobipro extends Exchange {
         await this.loadMarkets();
         await this.loadAccounts();
         let market = this.market(symbol);
+        let account_index = 0;
+        if (params.index) {
+            account_index = params.index;
+        } else {
+            account_index = 0;
+        }
         let order = {
-            'account-id': this.accounts[0]['id'],
+            'account-id': this.accounts[account_index]['id'],
             'amount': this.amountToPrecision(symbol, amount),
             'symbol': market['id'],
             'type': side + '-' + type,

@@ -33,8 +33,8 @@ module.exports = class huobitrade {
      * @param amount 数量
      * @param price  价格
      */
-    async createLimitSellOrder(symbol, amount, price) {
-        return await this.exchange.createLimitSellOrder(symbol, amount, price)
+    async createLimitSellOrder(symbol, amount, price, position) {
+        return await this.exchange.createLimitSellOrder(symbol, amount, price, {index: position})
     }
 
     /**
@@ -51,8 +51,8 @@ module.exports = class huobitrade {
      * @param amount
      * @param price
      */
-    async  createLimitBuyOrder(symbol, amount, price) {
-        return await this.exchange.createLimitBuyOrder(symbol, amount, price)
+    async  createLimitBuyOrder(symbol, amount, price, position) {
+        return await this.exchange.createLimitBuyOrder(symbol, amount, price, {index: position})
     }
 
     /**
