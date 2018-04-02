@@ -25,9 +25,8 @@ function main() {
                 fetchSpot()
                 break;
             case "fetchOrders":
-                fetchOrders()
+                fetchOrders(re[1])
                 break
-
         }
     }
 }
@@ -85,9 +84,9 @@ async function getMyPosition() {
     console.log(result);
 }
 
-async function fetchOrders() {
+async function fetchOrders(status) {
     let huobi = new trade();
-    let result = await huobi.fetchAllOrders("BTC/USDT", 0);
+    let result = await huobi.fetchAllOrders("BTC/USDT", status);
     let orders = [];
     for (let index in result) {
         let info = result[index];
@@ -104,13 +103,12 @@ async function fetchOrders() {
         orders.push(order);
         consoleOrder(order);
     }
-    console.log(orders);
 }
 
 
 function consoleOrder(order) {
     console.log("time: " + order.time + " id: " + order.id + " type: " + order.type + " price: " + modifiedNum(order.price)
-        + " amount: " + order.amount + " filled: " + order.filled + " remaining: " + order.remaining + " status " + order.status)
+        + " amount: " + modifiedNum(order.amount) + " filled: " + modifiedNum(order.filled) + " remaining: " + modifiedNum(order.remaining) + " status " + order.status)
 }
 
 function modifiedNum(str) {
