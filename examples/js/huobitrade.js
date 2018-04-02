@@ -94,7 +94,7 @@ module.exports = class huobitrade {
     }
 
     async fetchBalance(position) {
-        return await  this.exchange.fetchBalance({id: position});
+        return await  this.exchange.fetchBalance();
     }
 
     async  fetchOhlcv() {
