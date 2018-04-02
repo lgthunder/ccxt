@@ -107,8 +107,8 @@ async function fetchOrders(status) {
 
 
 function consoleOrder(order) {
-    console.log("time: " + order.time + " id: " + order.id + " type: " + order.type + " price: " + modifiedNum(order.price)
-        + " amount: " + modifiedNum(order.amount) + " filled: " + modifiedNum(order.filled) + " remaining: " + modifiedNum(order.remaining) + " status " + order.status)
+    console.log("time: " + order.time + " id: " + order.id + " type: " + modifiedStr(order.type, 7) + " price: " + modifiedNum(order.price)
+        + " amount: " + modifiedNum(order.amount) + " filled: " + modifiedNum(order.filled) + " remaining: " + modifiedNum(order.remaining) + " status " + modifiedStr(order.status, 7))
 }
 
 function modifiedNum(str) {
@@ -117,7 +117,14 @@ function modifiedNum(str) {
         result = result + " ";
     }
     return result.substr(0, 9);
+}
 
+function modifiedStr(str, count) {
+    let result = str + "";
+    while (result.length < count) {
+        result = result + " ";
+    }
+    return result.substr(0, count - 1);
 }
 
 async function htAmountMa() {
