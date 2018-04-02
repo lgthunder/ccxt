@@ -102,8 +102,10 @@ async function fetchOrders(status) {
         //     remaining: info.remaining,
         //     status: info.status
         // };
-        orders.push(info);
-        consoleOrder(info);
+        if (info.info.symbol == 'BTC/USDT') {
+            orders.push(info);
+            consoleOrder(info);
+        }
     }
 }
 
