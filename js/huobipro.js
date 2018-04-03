@@ -276,6 +276,7 @@ module.exports = class huobipro extends Exchange {
     }
 
     async loadAccounts(reload = false) {
+        console.log("reload:" + reload + this.accounts);
         if (reload) {
             this.accounts = await this.fetchAccounts();
         } else {
