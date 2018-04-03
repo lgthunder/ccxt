@@ -24,7 +24,7 @@ module.exports = class huobitrade {
             enableRateLimit: true
             // proxy: config.proxy,
         })
-        this.exchange.fetchAccounts();
+        this.exchange.loadAccounts();
     }
 
 
