@@ -33,7 +33,8 @@ function main() {
                 fetchOrders(re[1])
                 break
             case "co":
-                Promise(createMarginOrder(SYMBOL_BTC, 0.001, 6000)).then(function (resp) {
+                let p = createMarginOrder(SYMBOL_BTC, 0.001, 6000);
+                p.then(function (resp) {
                     console.log(resp);
                 }).catch(function (err) {
                     console.log(err);
