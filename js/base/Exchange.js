@@ -529,6 +529,7 @@ module.exports = class Exchange {
     }
 
     async loadMarkets(reload = false) {
+        console.log("reload :" + reload + this.markets);
         if (!reload && this.markets) {
             if (!this.marketsById) {
                 return this.setMarkets(this.markets)
