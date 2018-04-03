@@ -147,7 +147,11 @@ async function fetchOrders(status) {
 }
 
 async function cancelAll() {
-    let orders = await   fetchOrders(0);
+    let orders = await fetchOrders(0);
+    if(orders.length<1){
+        console.log("当前没有激活的挂单")
+        return;
+    }
     let promises = []
     for (let index in orders) {
         let p = cancelOrder(orders[index].id)
