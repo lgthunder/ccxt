@@ -24,7 +24,6 @@ module.exports = class huobitrade {
             enableRateLimit: true
             // proxy: config.proxy,
         })
-        this.exchange.loadAccounts();
     }
 
 
@@ -98,6 +97,10 @@ module.exports = class huobitrade {
 
     async fetchAccount() {
         return await this.exchange.fetchAccounts();
+    }
+
+    async loadAccounts() {
+        return await this.exchange.loadAccounts();
     }
 
     async fetchBalance(position) {

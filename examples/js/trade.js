@@ -38,6 +38,10 @@ module.exports = class huobitrade {
 // }
 // }
 
+    async loadAccounts() {
+        return await this.huobi.loadAccounts();
+
+    }
 
     fetchTicker(symbol) {
         let t = new Date().now();
