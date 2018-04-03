@@ -178,7 +178,7 @@ async function cancelOrder(id) {
 }
 async function createMarginOrder(symbol, amount, price) {
     let huobi = new trade();
-    return huobi.createMarginLimitBuyOrder(symbol, amount, price);
+    return await huobi.createMarginLimitBuyOrder(symbol, amount, price);
 }
 
 
