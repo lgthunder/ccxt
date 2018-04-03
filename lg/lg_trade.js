@@ -58,6 +58,8 @@ function main() {
                         }
                         Promise.all(promises).then(function (array) {
                             console.log(array);
+                        }).catch(function (err) {
+                            console.log(err);
                         })
                     } else {
                         console.log(`取消操作`);
