@@ -29,7 +29,7 @@ function main() {
                 fetchOrders(re[1])
                 break
             case "co":
-                let p = createMarginOrder(huobi, SYMBOL_BTC, 0.001, 6000);
+                let p = createMarginBuyOrder(huobi, SYMBOL_BTC, 0.001, 6000);
                 p.then(function (resp) {
                     console.log(resp);
                 }).catch(function (err) {
@@ -37,9 +37,9 @@ function main() {
                 })
                 break;
             case "cancel_order":
-                cancelOrder(huobi,re[1])
+                cancelOrder(huobi, re[1])
                 break;
-            case "give_order":
+            case "limit_buy_list":
                 console.log(re[1], re[2], re[3], re[4])
                 let trades = calPosition(re[1], re[2], re[3], re[4]);
                 let rl = readline.createInterface({
@@ -53,7 +53,7 @@ function main() {
                             if (trades[index].amount == 0) {
                                 continue;
                             }
-                            let p = createMarginOrder(huobi, SYMBOL_BTC, trades[index].amount, trades[index].limit);
+                            let p = createMarginBuyOrder(huobi, SYMBOL_BTC, trades[index].amount, trades[index].limit);
                             promises.push(p);
                         }
                         Promise.all(promises).then(function (array) {
@@ -66,6 +66,9 @@ function main() {
                     }
                     rl.close();
                 });
+                break;
+            case "limit_sell_list":
+                createMarginLimitSellOrder(huobi, SYMBOL_BTC, 0.001, 8100);
                 break;
             case "cancel_all":
                 cancelAll();
@@ -160,7 +163,7 @@ async function cancelAll() {
     let promises = []
     let huobi = new trade();
     for (let index in orders) {
-        let p = cancelOrder(huobi,orders[index].id)
+        let p = cancelOrder(huobi, orders[index].id)
         promises.push(p);
     }
     Promise.all(promises).then(function (array) {
@@ -173,12 +176,16 @@ async function cancelAll() {
 
 }
 
-async function cancelOrder(huobi,id) {
+async function cancelOrder(huobi, id) {
     let result = await huobi.cancelOrder(id);
     return result;
 }
-async function createMarginOrder(huobi, symbol, amount, price) {
+async function createMarginBuyOrder(huobi, symbol, amount, price) {
     return await huobi.createMarginLimitBuyOrder(symbol, amount, price);
+}
+
+async function createMarginLimitSellOrder(huobi, symbol, amount, price) {
+    return await huobi.createMarginLimitSellOrder(symbol, amount, price);
 }
 
 
