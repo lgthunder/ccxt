@@ -28,7 +28,8 @@ function main() {
                 fetchOrders(re[1])
                 break
             case "co":
-                let p = createMarginOrder(SYMBOL_BTC, 0.001, 6000);
+                let huobi = new trade();
+                let p = createMarginOrder(huobi, SYMBOL_BTC, 0.001, 6000);
                 p.then(function (resp) {
                     console.log(resp);
                 }).catch(function (err) {
@@ -40,19 +41,20 @@ function main() {
                 break;
             case "give_order":
                 console.log(re[1], re[2], re[3], re[4])
-                let trade = calPosition(re[1], re[2], re[3], re[4]);
-                let  rl = readline.createInterface({
+                let trades = calPosition(re[1], re[2], re[3], re[4]);
+                let rl = readline.createInterface({
                     input: process.stdin,
                     output: process.stdout
                 });
                 rl.question('输入 《 yes 》 确认操作,开始挂单 ', (answer) => {
                     if (answer == 'yes') {
                         let promises = []
-                        for (let index in trade) {
-                            if (trade[index].amount == 0) {
+                        let huobi = new trade();
+                        for (let index in trades) {
+                            if (trades[index].amount == 0) {
                                 continue;
                             }
-                            let p = createMarginOrder(SYMBOL_BTC, trade[index].amount, trade[index].limit);
+                            let p = createMarginOrder(huobi, SYMBOL_BTC, trades[index].amount, trades[index].limit);
                             promises.push(p);
                         }
                         Promise.all(promises).then(function (array) {
@@ -176,8 +178,7 @@ async function cancelOrder(id) {
     let result = await huobi.cancelOrder(id);
     return result;
 }
-async function createMarginOrder(symbol, amount, price) {
-    let huobi = new trade();
+async function createMarginOrder(huobi, symbol, amount, price) {
     return await huobi.createMarginLimitBuyOrder(symbol, amount, price);
 }
 
