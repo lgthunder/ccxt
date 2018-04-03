@@ -5,8 +5,8 @@ const SYMBOL_BTC = 'BTC/USDT';
 async function main() {
     let re = process.argv.splice(2);
     if (re.length > 0) {
-        let huobi = new trade();
-        await huobi.loadAccounts();
+        // let huobi = new trade();
+        // await huobi.loadAccounts();
         switch (re[0]) {
             case 'fetchMa5':
                 fetchMa5();
@@ -42,7 +42,7 @@ async function main() {
                 break;
             case "limit_buy_list":
                 console.log(re[1], re[2], re[3], re[4])
-                let trades = calPosition(re[1], re[2], re[3], re[4]);
+                let buyTrades = increasePosition(re[1], re[2], re[3], re[4]);
                 let rl = readline.createInterface({
                     input: process.stdin,
                     output: process.stdout
@@ -50,11 +50,11 @@ async function main() {
                 rl.question('输入 《 yes 》 确认操作,开始挂单 ', (answer) => {
                     if (answer == 'yes') {
                         let promises = []
-                        for (let index in trades) {
-                            if (trades[index].amount == 0) {
+                        for (let index in buyTrades) {
+                            if (buyTrades[index].amount == 0) {
                                 continue;
                             }
-                            let p = createMarginBuyOrder(huobi, SYMBOL_BTC, trades[index].amount, trades[index].limit);
+                            let p = createMarginBuyOrder(huobi, SYMBOL_BTC, buyTrades[index].amount, buyTrades[index].limit);
                             promises.push(p);
                         }
                         Promise.all(promises).then(function (array) {
@@ -69,7 +69,9 @@ async function main() {
                 });
                 break;
             case "limit_sell_list":
-                createMarginLimitSellOrder(huobi, SYMBOL_BTC, 0.001, 8100);
+                let sellTrades = descendingPosition(re[1], re[2], re[3], re[4]);
+
+                // createMarginLimitSellOrder(huobi, SYMBOL_BTC, 0.001, 8100);
                 break;
             case "cancel_all":
                 cancelAll();
@@ -264,7 +266,62 @@ async function htAmountMa() {
 }
 main();
 
-function calPosition(start_price, end_price, dollar, piece) {
+function descendingPosition(start_price, end_price, dollar, piece) {
+    let start = start_price;
+    let money = dollar;
+    let height = end_price - start_price;
+    let pieces = piece;
+    let unit = 0.001;
+    let count = height / pieces;
+    let degree = 2 * Math.PI / 360;
+    let ration = 60 * degree;
+    let tan = Math.tan(ration);
+
+    let area = [];
+    let total = 0;
+    for (let index = 1; index <= count; index++) {
+        let bottom = 2 * index * pieces / tan;
+        let top = 2 * (index - 1) * pieces / tan;
+        let squ = (bottom + top) * pieces / 2;
+        area.push(squ);
+        total = squ + total;
+    }
+    console.log(area);
+
+    let bag = [];
+    for (let index in area) {
+        bag.push(money * area[index] / total);
+    }
+
+    // console.log(bag);
+
+    let trade = [];
+    let total_amount = 0;
+    let remainder = 0;
+    let total_gain = 0;
+    for (let index in bag) {
+        let limit = parseFloat(start_price) + index * piece;
+        let amount = bag[index] + remainder;
+        let temp = amount % unit;
+        amount = amount - temp;
+        remainder = temp;
+        let gain = amount * limit;
+        total_amount = total_amount + amount;
+        total_gain = total_gain + gain;
+        trade.push({limit: limit.toFixed(1), amount: amount.toFixed(4), gain: gain.toFixed(2)})
+
+    }
+
+    console.log(trade);
+    console.log("count: " + trade.length);
+    console.log("total_amount: " + total_amount.toFixed(4));
+    console.log("total_gain: " + total_gain.toFixed(2));
+    console.log("average : " + (total_gain / total_amount).toFixed(2));
+
+}
+
+
+function increasePosition(start_price, end_price, dollar, piece) {
     let start = start_price;
     let money = dollar;
     let height = start_price - end_price;
@@ -315,7 +372,7 @@ function calPosition(start_price, end_price, dollar, piece) {
     }
     console.log(trade);
     console.log("count: " + trade.length);
-    console.log("total_amount:" + total_amount.toFixed(4));
+    console.log("total_amount: " + total_amount.toFixed(4));
     console.log("total_cost:" + total_cost.toFixed(2));
     console.log("average : " + (total_cost / total_amount).toFixed(2));
     return trade;
