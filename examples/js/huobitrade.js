@@ -21,7 +21,7 @@ module.exports = class huobitrade {
         this.exchange = new ccxt.huobipro({
             apiKey: config.HUOBI_KEY,
             secret: config.HUOBI_SECRECT,
-            enableRateLimit: true,
+            enableRateLimit: true
             // proxy: config.proxy,
         })
     }

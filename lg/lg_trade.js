@@ -36,7 +36,7 @@ function main() {
                 createMarginOrder(SYMBOL_BTC, 0.001, 6000);
                 break;
             case "cancel_order":
-                // cancelOrder(re[1])
+                cancelOrder(re[1])
                 break;
             case "give_order":
                 console.log(re[1], re[2], re[3], re[4])
@@ -59,7 +59,7 @@ function main() {
                     }
                     rl.close();
                 });
-
+                break;
             case "cancel_all":
                 cancelAll();
                 break;
@@ -148,7 +148,7 @@ async function fetchOrders(status) {
 
 async function cancelAll() {
     let orders = await fetchOrders(0);
-    if(orders.length<1){
+    if (orders.length < 1) {
         console.log("当前没有激活的挂单")
         return;
     }
@@ -159,8 +159,10 @@ async function cancelAll() {
     }
     Promise.all(promises).then(function (array) {
         console.log(array)
+        return
     }).catch(function (err) {
         console.log(err);
+        return
     })
 
 }
