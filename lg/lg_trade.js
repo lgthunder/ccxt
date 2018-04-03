@@ -1,11 +1,6 @@
 "use strict";
 const trade = require('../examples/js/trade.js');
 const readline = require('readline');
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
 const SYMBOL_BTC = 'BTC/USDT';
 function main() {
     let re = process.argv.splice(2);
@@ -46,6 +41,10 @@ function main() {
             case "give_order":
                 console.log(re[1], re[2], re[3], re[4])
                 let trade = calPosition(re[1], re[2], re[3], re[4]);
+                let  rl = readline.createInterface({
+                    input: process.stdin,
+                    output: process.stdout
+                });
                 rl.question('输入 《 yes 》 确认操作,开始挂单 ', (answer) => {
                     if (answer == 'yes') {
                         let promises = []
@@ -71,7 +70,6 @@ function main() {
                 cancelAll();
                 break;
         }
-        rl.close();
     }
 }
 
