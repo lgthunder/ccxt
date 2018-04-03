@@ -5,6 +5,7 @@ const SYMBOL_BTC = 'BTC/USDT';
 function main() {
     let re = process.argv.splice(2);
     if (re.length > 0) {
+        let huobi = new trade();
         switch (re[0]) {
             case 'fetchMa5':
                 fetchMa5();
@@ -28,7 +29,6 @@ function main() {
                 fetchOrders(re[1])
                 break
             case "co":
-                let huobi = new trade();
                 let p = createMarginOrder(huobi, SYMBOL_BTC, 0.001, 6000);
                 p.then(function (resp) {
                     console.log(resp);
@@ -37,7 +37,6 @@ function main() {
                 })
                 break;
             case "cancel_order":
-                let huobi = new trade();
                 cancelOrder(huobi,re[1])
                 break;
             case "give_order":
@@ -50,7 +49,6 @@ function main() {
                 rl.question('输入 《 yes 》 确认操作,开始挂单 ', (answer) => {
                     if (answer == 'yes') {
                         let promises = []
-                        let huobi = new trade();
                         for (let index in trades) {
                             if (trades[index].amount == 0) {
                                 continue;
