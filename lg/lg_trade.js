@@ -37,7 +37,8 @@ function main() {
                 })
                 break;
             case "cancel_order":
-                cancelOrder(re[1])
+                let huobi = new trade();
+                cancelOrder(huobi,re[1])
                 break;
             case "give_order":
                 console.log(re[1], re[2], re[3], re[4])
@@ -159,8 +160,9 @@ async function cancelAll() {
         return;
     }
     let promises = []
+    let huobi = new trade();
     for (let index in orders) {
-        let p = cancelOrder(orders[index].id)
+        let p = cancelOrder(huobi,orders[index].id)
         promises.push(p);
     }
     Promise.all(promises).then(function (array) {
@@ -173,8 +175,7 @@ async function cancelAll() {
 
 }
 
-async function cancelOrder(id) {
-    let huobi = new trade();
+async function cancelOrder(huobi,id) {
     let result = await huobi.cancelOrder(id);
     return result;
 }
