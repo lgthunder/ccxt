@@ -68,9 +68,8 @@ function main() {
             case "cancel_all":
                 cancelAll();
                 break;
-
-
         }
+        rl.close();
     }
 }
 
