@@ -197,8 +197,8 @@ function consoleOrder(order) {
         console.log(
             "time: " + order.datetime
             + " id: " + order.id
-            + " symbol: " + modifiedStr(order.info.symbol, 12)
-            + " type: " + modifiedStr(order.type, 7)
+            + " symbol: " + modifiedStr(order.info.symbol, 10)
+            + " type: " + modifiedStr(order.type, 6)
             + " side: " + modifiedStr(order.side, 6)
             + " price: " + modifiedNum(order.price)
             + " amount: " + modifiedNum(order.amount)
@@ -206,13 +206,13 @@ function consoleOrder(order) {
             + " remaining: " + modifiedNum(order.remaining)
             + " average: " + modifiedNum(order.average)
             + " cost: " + modifiedNum(order.cost)
-            + " status " + modifiedStr(order.status, 7))
+            + " status " + modifiedStr(order.status, 5))
     } else {
         console.log(
             "time: " + order.datetime
             + " id: " + order.id
-            + " symbol: " + modifiedStr(order.info.symbol, 12)
-            + " type: " + modifiedStr(order.type, 7)
+            + " symbol: " + modifiedStr(order.info.symbol, 10)
+            + " type: " + modifiedStr(order.type, 6)
             + " side: " + modifiedStr(order.side, 6)
             + " price: " + modifiedNum(order.price)
             + " amount: " + modifiedNum(order.amount)
@@ -220,7 +220,7 @@ function consoleOrder(order) {
             + " remaining: " + modifiedNum(order.remaining)
             + " average: " + modifiedNum(order.average)
             + " cost: " + modifiedNum(order.cost)
-            + " status " + modifiedStr(order.status, 7))
+            + " status " + modifiedStr(order.status, 5))
     }
 }
 
