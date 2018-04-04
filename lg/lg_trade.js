@@ -70,7 +70,7 @@ async function main() {
                 break;
             case "limit_sell_list":
                 let sellTrades = descendingPosition(re[1], re[2], re[3], re[4]);
-                createLimitSellList("", sellTrades);
+                createLimitSellList(huobi, sellTrades);
                 break;
             case "cancel_all":
                 cancelAll(re[1]);
