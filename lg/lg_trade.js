@@ -30,7 +30,7 @@ async function main() {
                 fetchOrders(re[1])
                 break
             case "co":
-                let p = createMarginBuyOrder(huobi, SYMBOL_BTC, 0.001, 6000);
+                let p = createMarginLimitSellOrder(huobi, SYMBOL_BTC, 0.001, 8000);
                 p.then(function (resp) {
                     console.log(resp);
                 }).catch(function (err) {
@@ -73,7 +73,7 @@ async function main() {
                 createLimitSellList("", sellTrades);
                 break;
             case "cancel_all":
-                cancelAll();
+                cancelAll(re[1]);
                 break;
         }
     }
@@ -184,7 +184,7 @@ async function fetchOrders(status) {
     return orders;
 }
 
-async function cancelAll() {
+async function cancelAll(params) {
     let orders = await fetchOrders(0);
     if (orders.length < 1) {
         console.log("当前没有激活的挂单")
@@ -193,8 +193,32 @@ async function cancelAll() {
     let promises = []
     let huobi = new trade();
     for (let index in orders) {
-        let p = cancelOrder(huobi, orders[index].id)
-        promises.push(p);
+        let p;
+        switch (params) {
+            case 'f':
+                p = cancelOrder(huobi, orders[index].id)
+                break
+            case 's':
+                if (orders[index].side == 'sell') {
+                    p = cancelOrder(huobi, orders[index].id)
+                }
+                break
+            case 'b':
+                if (orders[index].side == 'buy') {
+                    p = cancelOrder(huobi, orders[index].id)
+                }
+                break
+            default:
+                console.log("需要一个额外参数  f, s, b ")
+                break
+
+        }
+        if (p) {
+            promises.push(p);
+        }
+    }
+    if (promises.length < 1) {
+        return
     }
     Promise.all(promises).then(function (array) {
         console.log(array)
