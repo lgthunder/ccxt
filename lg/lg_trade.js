@@ -70,14 +70,41 @@ async function main() {
                 break;
             case "limit_sell_list":
                 let sellTrades = descendingPosition(re[1], re[2], re[3], re[4]);
-
-                // createMarginLimitSellOrder(huobi, SYMBOL_BTC, 0.001, 8100);
+                createLimitSellList("", sellTrades);
                 break;
             case "cancel_all":
                 cancelAll();
                 break;
         }
     }
+}
+
+function createLimitSellList(huobi, sellTrades) {
+    let rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+    rl.question('输入 《 yes 》 确认操作,开始挂单 ', (answer) => {
+        if (answer == 'yes') {
+            let promises = []
+            for (let index in sellTrades) {
+                if (sellTrades[index].amount == 0) {
+                    continue;
+                }
+                let p = createMarginLimitSellOrder(huobi, SYMBOL_BTC, sellTrades[index].amount, sellTrades[index].limit);
+                promises.push(p);
+            }
+            Promise.all(promises).then(function (array) {
+                console.log(array);
+            }).catch(function (err) {
+                console.log(err);
+            })
+        } else {
+            console.log(`取消操作`);
+        }
+        rl.close();
+    });
+
 }
 
 async function fetchMa5() {
@@ -188,6 +215,7 @@ async function createMarginBuyOrder(huobi, symbol, amount, price) {
 }
 
 async function createMarginLimitSellOrder(huobi, symbol, amount, price) {
+    console.log(huobi, symbol, amount, price)
     return await huobi.createMarginLimitSellOrder(symbol, amount, price);
 }
 
@@ -317,6 +345,7 @@ function descendingPosition(start_price, end_price, dollar, piece) {
     console.log("total_amount: " + total_amount.toFixed(4));
     console.log("total_gain: " + total_gain.toFixed(2));
     console.log("average : " + (total_gain / total_amount).toFixed(2));
+    return trade;
 
 }
 
