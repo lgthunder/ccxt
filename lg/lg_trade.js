@@ -206,7 +206,7 @@ function consoleOrder(order) {
             + " remaining: " + modifiedNum(order.remaining)
             + " average: " + modifiedNum(order.average)
             + " cost: " + modifiedNum(order.cost)
-            + " status " + modifiedStr(order.status, 5))
+            + " status " + modifiedStr(order.status, 6))
     } else {
         console.log(
             "time: " + order.datetime
@@ -220,7 +220,7 @@ function consoleOrder(order) {
             + " remaining: " + modifiedNum(order.remaining)
             + " average: " + modifiedNum(order.average)
             + " cost: " + modifiedNum(order.cost)
-            + " status " + modifiedStr(order.status, 5))
+            + " status " + modifiedStr(order.status, 6))
     }
 }
 
