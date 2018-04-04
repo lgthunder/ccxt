@@ -226,10 +226,10 @@ function consoleOrder(order) {
 
 function modifiedNum(str) {
     let result = str + "";
-    while (result.length < 10) {
+    while (result.length < 9) {
         result = result + " ";
     }
-    return result.substr(0, 9);
+    return result.substr(0, 8);
 }
 
 function modifiedStr(str, count) {
