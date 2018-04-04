@@ -239,7 +239,6 @@ async function createMarginBuyOrder(huobi, symbol, amount, price) {
 }
 
 async function createMarginLimitSellOrder(huobi, symbol, amount, price) {
-    console.log(huobi, symbol, amount, price)
     return await huobi.createMarginLimitSellOrder(symbol, amount, price);
 }
 
