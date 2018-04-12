@@ -366,6 +366,8 @@ module.exports = class huobitrade {
             }
         }
         let sorft = this.sorftD;
+        let modifiedStr = this.modifiedStr;
+        let modifiedNum = this.modifiedNum;
         Promise.all(p).then(function (arr) {
             for (let index in arr) {
                 let ma = arr[index];
