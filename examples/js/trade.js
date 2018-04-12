@@ -388,7 +388,9 @@ module.exports = class huobitrade {
                     + "  offset:" + re.offset.toFixed(2)
                     + "  current:" + re.current.toFixed(2);
                 for (let t in period) {
-                    log = log + "  ma" + period[t] + " :" + re["ma" + period[t]].toFixed(4);
+                    if (re["ma" + period[t]]) {
+                        log = log + "  ma" + period[t] + " :" + re["ma" + period[t]].toFixed(4);
+                    }
                 }
                 console.log(log);
             }
