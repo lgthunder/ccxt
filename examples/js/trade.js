@@ -396,15 +396,17 @@ module.exports = class huobitrade {
         let flag = 0
         for (let period in periods) {
             let total = 0;
+            let day_count = 0;
             for (let day in data) {
                 if (day > periods[period] - 1) break;
                 total = total + data[day].close;
+                day_count++;
             }
-
-            d = d + Math.pow(current - total / periods[period], 2);
-            response["ma" + periods[period]] = total / periods[period];
+            let avg = total / day_count
+            d = d + Math.pow(current - total, 2);
+            response["ma" + day_count] = avg;
             count++;
-            if (current >= total / periods[period]) {
+            if (current >= avg) {
                 flag = 1;
             } else {
                 flag = 0;
