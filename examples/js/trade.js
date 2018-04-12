@@ -317,7 +317,6 @@ module.exports = class huobitrade {
                     console.log(coin.currency + " : " + coin.balance);
                     continue;
                 }
-                console.log(coin.currency + " : " + coin.balance);
                 let symbol = this.findSymbol(coin.currency, symbolArr);
                 if (symbol) {
                     let ticker = await this.huobi.fetchTicker(symbol);
