@@ -75,6 +75,9 @@ async function main() {
             case "cancel_all":
                 cancelAll(re[1]);
                 break;
+            case "fetch_trend":
+                fetchTrend(re[1]);
+                break;
         }
     }
 }
@@ -428,5 +431,10 @@ function increasePosition(start_price, end_price, dollar, piece) {
     console.log("total_cost:" + total_cost.toFixed(2));
     console.log("average : " + (total_cost / total_amount).toFixed(2));
     return trade;
+}
+
+function fetchTrend(params) {
+    let huobi = new trade();
+    huobi.fetchTrend(params);
 }
 

@@ -147,9 +147,9 @@ module.exports = class huobitrade {
      * @param symbol
      * @returns {{ma5: number, current: *}}
      */
-    async  getUsdtMa5(symbol) {
+    async  getUsdtMa5(symbol, period) {
         console.log("fetch :  " + symbol);
-        let result = await this.huobi.fetchKline(symbol, '1day', 6);
+        let result = await this.huobi.fetchKline(symbol, '1day', period);
         console.log(result);
         let amount = 0;
         let index = 0;
@@ -252,7 +252,7 @@ module.exports = class huobitrade {
         let result = new Array();
         for (let index in array) {
             try {
-                p.push(this.getUsdtMa5(array[index]));
+                p.push(this.getUsdtMa5(array[index]), 5);
             } catch (e) {
                 console.log(e);
             }
@@ -353,6 +353,39 @@ module.exports = class huobitrade {
             }
         }
         return arr;
+    }
+
+
+    fetchTrend(period) {
+        let array = await
+        this.fetchUsdtSymbol();
+        let p = [];
+        let result = new Array();
+        for (let index in array) {
+            try {
+                p.push(this.getUsdtMa5(array[index]), period);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        Promise.all(p).then(function (arr) {
+            for (let index in arr) {
+                let ma = arr[index];
+                if (!ma) continue
+                let percent = (ma.ma5 - ma.current) / ma.current * 100;
+                let symbol = array[index];
+                let offset = percent.toFixed(2);
+                let price = ma.current.toFixed(4)
+                let ma5 = ma.ma5.toFixed(4);
+                let preMa5 = ma.preMa5.toFixed(4);
+                let fallRate = (((preMa5 / ma5) - 1) * 100).toFixed(2);
+                result[index] = {symbol, offset, fallRate, preMa5, ma5, price}
+            }
+            console.log(result);
+        })
+
+
     }
 
     /**
