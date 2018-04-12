@@ -386,7 +386,7 @@ module.exports = class huobitrade {
     }
 
     async  getUsdtMa(symbol, periods) {
-        let result = await this.huobi.fetchKline(symbol, '1day', period[periods.length - 1]);
+        let result = await this.huobi.fetchKline(symbol, '1day', periods[periods.length - 1]);
         let data = result["data"];
         let current = data[0].close;
         let response = new Array();
