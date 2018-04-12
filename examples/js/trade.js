@@ -380,7 +380,7 @@ module.exports = class huobitrade {
                 // result[index] = {symbol, offset, fallRate, preMa5, ma5, price}
                 result[index] = ma;
             }
-            console.log(result);
+            console.log(sorftD(result));
         })
     }
 
@@ -420,6 +420,20 @@ module.exports = class huobitrade {
         }
 
         return response;
+    }
+
+    sorftD(arr) {
+        var len = arr.length;
+        for (var i = 0; i < len; i++) {
+            for (var j = 0; j < len - 1 - i; j++) {
+                if (parseInt(arr[j].D) < parseInt(arr[j + 1].D)) {        // 相邻元素两两对比
+                    var temp = arr[j + 1];        // 元素交换
+                    arr[j + 1] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        return arr;
     }
 
     /**
