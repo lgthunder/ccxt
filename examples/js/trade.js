@@ -390,15 +390,15 @@ module.exports = class huobitrade {
         let current = data[0].close;
         let response = new Array();
         response["current"] = current;
+        response["symbol"] = symbol;
         for (let period in periods) {
             let total = 0;
             for (let day in data) {
                 if (day > periods[period] - 1) break;
                 total = total + data[day].close;
             }
-            response[periods[period]] = total / periods[period];
+            response["ma" + periods[period]] = total / periods[period];
         }
-        console.log(response);
         return response;
     }
 
