@@ -331,6 +331,7 @@ module.exports = class huobitrade {
     findSymbol(symbol, arr) {
         for (let index in arr) {
             let obj = arr[index];
+            if (!obj) continue
             if (obj.id.indexOf(symbol) >= 0) {
                 return obj.symbol;
             }
