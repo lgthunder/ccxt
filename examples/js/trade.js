@@ -355,7 +355,6 @@ module.exports = class huobitrade {
 
 
     async fetchTrend(period) {
-        period = [1, 3, 5];
         let array = await this.fetchUsdtSymbol();
         let p = [];
         let result = new Array();
@@ -390,14 +389,14 @@ module.exports = class huobitrade {
         let data = result["data"];
         let current = data[0].close;
         let response = new Array();
-        response[1] = current;
+        response["current"] = current;
         for (let period in periods) {
             let total = 0;
             for (let day in data) {
-                if (day > periods[period]) break;
+                if (day > periods[period] - 1) break;
                 total = total + data[day].close;
             }
-            response[period] = total / periods[period];
+            response[periods[period]] = total / periods[period];
         }
         console.log(response);
         return response;

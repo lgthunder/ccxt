@@ -5,8 +5,8 @@ const SYMBOL_BTC = 'BTC/USDT';
 async function main() {
     let re = process.argv.splice(2);
     if (re.length > 0) {
-        let huobi = new trade();
-        await huobi.loadAccounts();
+        // let huobi = new trade();
+        // await huobi.loadAccounts();
         switch (re[0]) {
             case 'fetchMa5':
                 fetchMa5();
@@ -76,7 +76,8 @@ async function main() {
                 cancelAll(re[1]);
                 break;
             case "fetch_trend":
-                fetchTrend(re[1]);
+                let arry = [];
+                fetchTrend(re.copyWithin(arry, 1, re.length - 1));
                 break;
         }
     }
@@ -434,6 +435,7 @@ function increasePosition(start_price, end_price, dollar, piece) {
 }
 
 function fetchTrend(params) {
+    console.log(params);
     let huobi = new trade();
     huobi.fetchTrend(params);
 }
