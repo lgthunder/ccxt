@@ -365,7 +365,7 @@ module.exports = class huobitrade {
                 console.log(e);
             }
         }
-
+        let sorft = this.sorftD;
         Promise.all(p).then(function (arr) {
             for (let index in arr) {
                 let ma = arr[index];
@@ -380,7 +380,7 @@ module.exports = class huobitrade {
                 // result[index] = {symbol, offset, fallRate, preMa5, ma5, price}
                 result[index] = ma;
             }
-            console.log(sorftD(result));
+            console.log(sorft(result));
         })
     }
 
