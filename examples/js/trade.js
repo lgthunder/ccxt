@@ -405,7 +405,7 @@ module.exports = class huobitrade {
             count++;
         }
         let dx = Math.sqrt(d / count);
-        response["D"] = dx / current * 100 %;
+        response["D"] = dx / current * 100;
         return response;
     }
 
