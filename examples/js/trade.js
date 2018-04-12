@@ -388,18 +388,18 @@ module.exports = class huobitrade {
         let result = await this.huobi.fetchKline(symbol, '1day', period[periods.length - 1]);
         let data = result["data"];
         let current = data[0].close;
-        let result = new Array();
-        result[1] = current;
+        let response = new Array();
+        response[1] = current;
         for (let period in periods) {
             let total = 0;
             for (let day in data) {
                 if (data > period) break;
                 total = total + data[data].close;
             }
-            result[period] = total / period;
+            response[period] = total / period;
         }
-        console.log(result);
-        return result;
+        console.log(response);
+        return response;
     }
 
     /**
