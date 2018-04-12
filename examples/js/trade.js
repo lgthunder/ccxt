@@ -360,7 +360,7 @@ module.exports = class huobitrade {
         let result = new Array();
         for (let index in array) {
             try {
-                p.push(this.getUsdtMa5(array[index]), period);
+                p.push(this.getUsdtMa5((array[index]), period));
             } catch (e) {
                 console.log(e);
             }
