@@ -418,7 +418,8 @@ module.exports = class huobitrade {
         } else {
             response["D"] = (0 - dx / current) * 100;
         }
-
+        let offset = (current - response["ma" + periods[0]]) / current * 100
+        response["offset"] = offset;
         return response;
     }
 
