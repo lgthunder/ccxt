@@ -308,7 +308,6 @@ module.exports = class huobitrade {
 
     async getMyPosition() {
         let symbolArr = await this.fetchUsdtSymbolObj();
-        console.log(re);
         let re = await this.fetchBalance();
         let coinArry = re.info.data.list;
         for (let index in coinArry) {
