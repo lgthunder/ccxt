@@ -356,9 +356,8 @@ module.exports = class huobitrade {
     }
 
 
-    fetchTrend(period) {
-        let array = await
-        this.fetchUsdtSymbol();
+    async fetchTrend(period) {
+        let array = await this.fetchUsdtSymbol();
         let p = [];
         let result = new Array();
         for (let index in array) {
