@@ -383,13 +383,13 @@ module.exports = class huobitrade {
             result = sorft(result);
             for (let index in result) {
                 let re = result[index];
-                let log = "" + "symbol:" + re.symbol
-                    + "  D:" + re.D.toFixed(2)
-                    + "  offset:" + re.offset.toFixed(2)
-                    + "  current:" + re.current.toFixed(2);
+                let log = "" + "symbol:" + modifiedStr(re.symbol, 10)
+                    + "  D:" + modifiedNum(re.D)
+                    + "  offset:" + modifiedNum(re.offset)
+                    + "  current:" + modifiedNum(re.current);
                 for (let t in period) {
                     if (re["ma" + period[t]]) {
-                        log = log + "  ma" + period[t] + " :" + re["ma" + period[t]].toFixed(4);
+                        log = log + "  ma" + period[t] + ": " + modifiedNum(re["ma" + period[t]]);
                     }
                 }
                 console.log(log);
@@ -448,6 +448,22 @@ module.exports = class huobitrade {
             }
         }
         return arr;
+    }
+
+    modifiedNum(str) {
+        let result = str + "";
+        while (result.length < 9) {
+            result = result + " ";
+        }
+        return result.substr(0, 8);
+    }
+
+    modifiedStr(str, count) {
+        let result = str + "";
+        while (result.length < count) {
+            result = result + " ";
+        }
+        return result.substr(0, count - 1);
     }
 
     /**
