@@ -403,7 +403,7 @@ module.exports = class huobitrade {
                 day_count++;
             }
             let avg = total / day_count
-            d = d + Math.pow(current - total, 2);
+            d = d + Math.pow(current - avg, 2);
             response["ma" + day_count] = avg;
             count++;
             if (current >= avg) {
