@@ -393,6 +393,7 @@ module.exports = class huobitrade {
         response["current"] = current;
         let d = 0;
         let count = 0;
+        let flag = 0
         for (let period in periods) {
             let total = 0;
             for (let day in data) {
@@ -403,9 +404,19 @@ module.exports = class huobitrade {
             d = d + Math.pow(current - total / periods[period], 2);
             response["ma" + periods[period]] = total / periods[period];
             count++;
+            if (current >= total / periods[period]) {
+                flag = 1;
+            } else {
+                flag = 0;
+            }
         }
         let dx = Math.sqrt(d / count);
-        response["D"] = dx / current * 100;
+        if (flag == 1) {
+            response["D"] = dx / current * 100;
+        } else {
+            response["D"] = (0 - dx / current) * 100;
+        }
+
         return response;
     }
 
