@@ -380,7 +380,18 @@ module.exports = class huobitrade {
                 // result[index] = {symbol, offset, fallRate, preMa5, ma5, price}
                 result[index] = ma;
             }
-            console.log(sorft(result));
+            result = sorft(result);
+            for (let index in result) {
+                let re = result[index];
+                let log = "" + "symbol:" + re.symbol
+                    + "D:" + re.D
+                    + "offset:" + re.offset.toFixed(2)
+                    + "current:" + re.current.toFixed(2);
+                for (let t in period) {
+                    log = log + "ma" + period[t] + " :" + result["ma" + period[t]]
+                }
+                console.log(log);
+            }
         })
     }
 
