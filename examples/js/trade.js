@@ -386,7 +386,7 @@ module.exports = class huobitrade {
     }
 
     async  getUsdtMa(symbol, periods) {
-        let result = await this.huobi.fetchKline(symbol, '1day', periods[periods.length - 1]);
+        let result = await this.huobi.fetchKline(symbol, '1day', periods[periods.length]);
         let data = result["data"];
         let current = data[0].close;
         let response = new Array();
@@ -394,10 +394,10 @@ module.exports = class huobitrade {
         for (let period in periods) {
             let total = 0;
             for (let day in data) {
-                if (data > period) break;
-                total = total + data[data].close;
+                if (day > periods[period]) break;
+                total = total + data[day].close;
             }
-            response[period] = total / period;
+            response[period] = total / periods[period];
         }
         console.log(response);
         return response;
