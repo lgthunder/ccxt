@@ -360,7 +360,7 @@ module.exports = class huobitrade {
         let result = new Array();
         for (let index in array) {
             try {
-                p.push(this.getUsdtMa5((array[index]), period));
+                p.push(this.getUsdtMa((array[index]), period));
             } catch (e) {
                 console.log(e);
             }
@@ -370,19 +370,36 @@ module.exports = class huobitrade {
             for (let index in arr) {
                 let ma = arr[index];
                 if (!ma) continue
-                let percent = (ma.ma5 - ma.current) / ma.current * 100;
-                let symbol = array[index];
-                let offset = percent.toFixed(2);
-                let price = ma.current.toFixed(4)
-                let ma5 = ma.ma5.toFixed(4);
-                let preMa5 = ma.preMa5.toFixed(4);
-                let fallRate = (((preMa5 / ma5) - 1) * 100).toFixed(2);
-                result[index] = {symbol, offset, fallRate, preMa5, ma5, price}
+                // let percent = (ma.ma5 - ma.current) / ma.current * 100;
+                // let symbol = array[index];
+                // let offset = percent.toFixed(2);
+                // let price = ma.current.toFixed(4)
+                // let ma5 = ma.ma5.toFixed(4);
+                // let preMa5 = ma.preMa5.toFixed(4);
+                // let fallRate = (((preMa5 / ma5) - 1) * 100).toFixed(2);
+                // result[index] = {symbol, offset, fallRate, preMa5, ma5, price}
+                result[index] = ma;
             }
             console.log(result);
         })
+    }
 
-
+    async  getUsdtMa(symbol, periods) {
+        let result = await this.huobi.fetchKline(symbol, '1day', period[periods.length - 1]);
+        let data = result["data"];
+        let current = data[0].close;
+        let result = new Array();
+        result[1] = current;
+        for (let period in periods) {
+            let total = 0;
+            for (let day in data) {
+                if (data > period) break;
+                total = total + data[data].close;
+            }
+            result[period] = total / period;
+        }
+        console.log(result);
+        return result;
     }
 
     /**
