@@ -315,7 +315,6 @@ module.exports = class huobitrade {
             if (coin.balance > 0.01) {
                 if (coin.currency == 'usdt') {
                     console.log(coin.currency + " : " + coin.balance);
-                    continue;
                 }
                 let symbol = this.findSymbol(coin.currency, symbolArr);
                 if (symbol) {
