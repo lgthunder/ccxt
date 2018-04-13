@@ -111,7 +111,7 @@ module.exports = class huobitrade {
      * 获取usdt & btc 交易对
      * @returns {Array} [{},...]
      */
-    async  fetchUsdtSymbolObj() {
+    async  fetchUsdtAndBtcSymbolObj() {
         let result = await this.huobi.loadMarkets();
         let usdtArray = new Array();
         let index = 0;
@@ -326,7 +326,7 @@ module.exports = class huobitrade {
     }
 
     async getMyPosition() {
-        let symbolArr = await this.fetchUsdtSymbolObj();
+        let symbolArr = await this.fetchUsdtAndBtcSymbolObj();
         let re = await this.fetchBalance();
         let coinArry = re.info.data.list;
         console.log(symbolArr);
