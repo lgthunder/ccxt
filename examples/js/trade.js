@@ -366,10 +366,8 @@ module.exports = class huobitrade {
                 }
             }
         }
-        for (let index in array) {
-            let p = array[index];
-        }
-
+        console.log(ustdArray)
+        console.log(btcArray)
     }
 
 
