@@ -319,6 +319,7 @@ module.exports = class huobitrade {
                     console.log(coin.currency + " : " + coin.balance);
                 }
                 let symbol = this.findSymbol(coin.currency, symbolArr);
+                console.log(symbol + " " + coin.currency);
                 if (symbol) {
                     let ticker = await this.huobi.fetchTicker(symbol);
                     let amount = coin.balance * ticker.close;
