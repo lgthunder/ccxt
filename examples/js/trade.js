@@ -117,8 +117,7 @@ module.exports = class huobitrade {
         let index = 0;
         for (let sy in result) {
             let symbol = result[sy].symbol;
-            if (symbol.indexOf("USDT") > 0 || symbol.indexOf("BTC")) {
-                console.log(symbol + "usdt:" + symbol.indexOf("USDT") + " btc: " + symbol.indexOf("BTC"))
+            if (symbol.indexOf("USDT") > 0 || symbol.indexOf("BTC") > 0) {
                 usdtArray[index] = result[sy];
                 index = index + 1;
             }
@@ -329,10 +328,10 @@ module.exports = class huobitrade {
     async getMyPosition() {
         let symbolArr = await this.fetchUsdtAndBtcSymbolObj();
         let re = await this.fetchBalance();
+        let btc_ticker = await this.huobi.fetchTicker('BTC/USDT');
         let coinArry = re.info.data.list;
-        // console.log(symbolArr);
-        // console.log(coinArry);
-        let array = []
+        let ustdArray = []
+        let btcArray = []
         for (let index in coinArry) {
             let coin = coinArry[index];
             if (coin.balance > 0.01) {
@@ -346,11 +345,31 @@ module.exports = class huobitrade {
                     let amount = coin.balance * ticker.close;
                     // console.log(symbol + " : " + "amount: " + coin.balance + " price: " + ticker.close);
                     // console.log(symbol + " : " + amount.toFixed(2));
-                    array.push({"symbol": symbol, "amount": coin.balance, "price": ticker.close, "total": amount})
+                    if (symbol.indexOf("USDT") > 0) {
+                        ustdArray.push({
+                            "symbol": symbol,
+                            "amount": coin.balance,
+                            "price": ticker.close,
+                            "total": amount,
+                            "total_usdt": amount
+                        })
+                    } else if (symbol.indexOf("BTC") > 0) {
+                        btcArray.push({
+                            "symbol": symbol,
+                            "amount": coin.balance,
+                            "price": ticker.close,
+                            "total": amount,
+                            "total_usdt": amount * btc_ticker.close
+                        })
+                    }
+
                 }
             }
         }
-        console.log(array);
+        for (let index in array) {
+            let p = array[index];
+        }
+
     }
 
 
