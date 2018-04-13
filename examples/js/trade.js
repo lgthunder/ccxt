@@ -373,9 +373,9 @@ module.exports = class huobitrade {
                 total_usdt = total_usdt + p.total_usdt;
                 console.log("symbol: " + this.modifiedStr(p.symbol, 10)
                     + " amount: " + this.modifiedNum(p.balance)
-                    + " price: " + this.modifiedNum(ticker.close)
-                    + " total: " + this.modifiedNum(amount)
-                    + " total_usdt: " + this.modifiedNum(amount))
+                    + " price: " + this.modifiedNum(p.price)
+                    + " total: " + this.modifiedNum(p.total)
+                    + " total_usdt: " + this.modifiedNum(p.total_usdt))
             }
         }
         for (let index in btcArray) {
@@ -384,9 +384,9 @@ module.exports = class huobitrade {
                 total_usdt = total_usdt + p.total_usdt;
                 console.log("symbol: " + this.modifiedStr(p.symbol, 10)
                     + " amount: " + this.modifiedNum(p.balance)
-                    + " price: " + this.modifiedNum(ticker.close)
-                    + " total: " + this.modifiedNum(amount)
-                    + " total_usdt: " + this.modifiedNum(amount))
+                    + " price: " + this.modifiedNum(p.price)
+                    + " total: " + this.modifiedNum(p.total)
+                    + " total_usdt: " + this.modifiedNum(p.total_usdt))
             }
         }
         console.log("total_usdt: " + total_usdt);
