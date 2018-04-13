@@ -106,6 +106,25 @@ module.exports = class huobitrade {
         return usdtArray;
     }
 
+
+    /**
+     * 获取usdt & btc 交易对
+     * @returns {Array} [{},...]
+     */
+    async  fetchUsdtSymbolObj() {
+        let result = await this.huobi.loadMarkets();
+        let usdtArray = new Array();
+        let index = 0;
+        for (let sy in result) {
+            let symbol = result[sy].symbol;
+            if (symbol.indexOf("USDT") > 0 || symbol.indexOf("BTC")) {
+                usdtArray[index] = result[sy];
+                index = index + 1;
+            }
+        }
+        return usdtArray;
+    }
+
     /**
      *
      * @returns {Array} [BTC/USDT,...]
@@ -307,7 +326,7 @@ module.exports = class huobitrade {
     }
 
     async getMyPosition() {
-        let symbolArr = await this.huobi.loadMarkets();
+        let symbolArr = await this.fetchUsdtSymbolObj();
         let re = await this.fetchBalance();
         let coinArry = re.info.data.list;
         console.log(symbolArr);
@@ -317,11 +336,13 @@ module.exports = class huobitrade {
             if (coin.balance > 0.01) {
                 if (coin.currency == 'usdt') {
                     console.log(coin.currency + " : " + coin.balance);
+                    continue;
                 }
                 let symbol = this.findSymbol(coin.currency, symbolArr);
                 if (symbol) {
                     let ticker = await this.huobi.fetchTicker(symbol);
                     let amount = coin.balance * ticker.close;
+                    console.log(symbol + " : " + "amount: " + coin.balance + " price: " + ticker.close);
                     console.log(symbol + " : " + amount.toFixed(2));
                 }
             }
