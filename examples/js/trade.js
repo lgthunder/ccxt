@@ -331,6 +331,7 @@ module.exports = class huobitrade {
         let coinArry = re.info.data.list;
         console.log(symbolArr);
         console.log(coinArry);
+        let array = []
         for (let index in coinArry) {
             let coin = coinArry[index];
             if (coin.balance > 0.01) {
@@ -342,11 +343,13 @@ module.exports = class huobitrade {
                 if (symbol) {
                     let ticker = await this.huobi.fetchTicker(symbol);
                     let amount = coin.balance * ticker.close;
-                    console.log(symbol + " : " + "amount: " + coin.balance + " price: " + ticker.close);
-                    console.log(symbol + " : " + amount.toFixed(2));
+                    // console.log(symbol + " : " + "amount: " + coin.balance + " price: " + ticker.close);
+                    // console.log(symbol + " : " + amount.toFixed(2));
+                    array.push({"symbol": symbol, "amount": coin.balance, "price": ticker.close, "total": amount})
                 }
             }
         }
+        console.log(array);
     }
 
 
