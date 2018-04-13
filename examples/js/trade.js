@@ -307,7 +307,7 @@ module.exports = class huobitrade {
     }
 
     async getMyPosition() {
-        let symbolArr = await this.fetchUsdtSymbolObj();
+        let symbolArr = await this.huobi.loadMarkets();
         let re = await this.fetchBalance();
         let coinArry = re.info.data.list;
         console.log(symbolArr);
@@ -319,7 +319,6 @@ module.exports = class huobitrade {
                     console.log(coin.currency + " : " + coin.balance);
                 }
                 let symbol = this.findSymbol(coin.currency, symbolArr);
-                console.log(symbol + " " + coin.currency);
                 if (symbol) {
                     let ticker = await this.huobi.fetchTicker(symbol);
                     let amount = coin.balance * ticker.close;
