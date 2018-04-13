@@ -379,7 +379,7 @@ module.exports = class huobitrade {
             }
         }
         for (let index in btcArray) {
-            let p = ustdArray[index];
+            let p = btcArray[index];
             if (p && p.total_usdt > 1) {
                 total_usdt = total_usdt + p.total_usdt;
                 console.log("symbol: " + this.modifiedStr(p.symbol, 10)
