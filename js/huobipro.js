@@ -68,6 +68,8 @@ module.exports = class huobipro extends Exchange {
                         'common/symbols', // 查询系统支持的所有交易对
                         'common/currencys', // 查询系统支持的所有币种
                         'common/timestamp', // 查询系统当前时间
+                        'hadax/common/symbols',//hadax 交易对
+                        'hadax/common/currencys'// 查询系统支持的所有币种
                     ],
                 },
                 'private': {

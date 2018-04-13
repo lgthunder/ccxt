@@ -310,6 +310,7 @@ module.exports = class huobitrade {
         let symbolArr = await this.fetchUsdtSymbolObj();
         let re = await this.fetchBalance();
         let coinArry = re.info.data.list;
+        console.log(coinArry);
         for (let index in coinArry) {
             let coin = coinArry[index];
             if (coin.balance > 0.01) {
@@ -398,6 +399,52 @@ module.exports = class huobitrade {
             }
         })
     }
+
+    async fetchBtcTrend(period) {
+        let array = await this.fetchUsdtSymbolObj();
+        let p = [];
+        let result = new Array();
+        for (let index in array) {
+            try {
+                p.push(this.getUsdtMa((array[index]), period));
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        let sorft = this.sorftD;
+        let modifiedStr = this.modifiedStr;
+        let modifiedNum = this.modifiedNum;
+        Promise.all(p).then(function (arr) {
+            for (let index in arr) {
+                let ma = arr[index];
+                if (!ma) continue
+                // let percent = (ma.ma5 - ma.current) / ma.current * 100;
+                // let symbol = array[index];
+                // let offset = percent.toFixed(2);
+                // let price = ma.current.toFixed(4)
+                // let ma5 = ma.ma5.toFixed(4);
+                // let preMa5 = ma.preMa5.toFixed(4);
+                // let fallRate = (((preMa5 / ma5) - 1) * 100).toFixed(2);
+                // result[index] = {symbol, offset, fallRate, preMa5, ma5, price}
+                result[index] = ma;
+            }
+            result = sorft(result);
+            for (let index in result) {
+                let re = result[index];
+                let log = "" + "symbol:" + modifiedStr(re.symbol, 10)
+                    + "  D:" + modifiedNum(re.D)
+                    + "  offset:" + modifiedNum(re.offset)
+                    + "  current:" + modifiedNum(re.current);
+                for (let t in period) {
+                    if (re["ma" + period[t]]) {
+                        log = log + "  ma" + period[t] + ": " + modifiedNum(re["ma" + period[t]]);
+                    }
+                }
+                console.log(log);
+            }
+        })
+    }
+
 
     async  getUsdtMa(symbol, periods) {
         let result = await this.huobi.fetchKline(symbol, '1day', periods[periods.length]);
