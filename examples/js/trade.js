@@ -372,7 +372,7 @@ module.exports = class huobitrade {
             if (p && p.total_usdt > 1) {
                 total_usdt = total_usdt + p.total_usdt;
                 console.log("symbol: " + this.modifiedStr(p.symbol, 10)
-                    + " amount: " + this.modifiedNum(p.balance)
+                    + " amount: " + this.modifiedNum(p.amount)
                     + " price: " + this.modifiedNum(p.price)
                     + " total: " + this.modifiedNum(p.total)
                     + " total_usdt: " + this.modifiedNum(p.total_usdt))
@@ -383,7 +383,7 @@ module.exports = class huobitrade {
             if (p && p.total_usdt > 1) {
                 total_usdt = total_usdt + p.total_usdt;
                 console.log("symbol: " + this.modifiedStr(p.symbol, 10)
-                    + " amount: " + this.modifiedNum(p.balance)
+                    + " amount: " + this.modifiedNum(p.amount)
                     + " price: " + this.modifiedNum(p.price)
                     + " total: " + this.modifiedNum(p.total)
                     + " total_usdt: " + this.modifiedNum(p.total_usdt))
