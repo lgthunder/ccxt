@@ -118,6 +118,7 @@ module.exports = class huobitrade {
         for (let sy in result) {
             let symbol = result[sy].symbol;
             if (symbol.indexOf("USDT") > 0 || symbol.indexOf("BTC")) {
+                console.log(symbol)
                 usdtArray[index] = result[sy];
                 index = index + 1;
             }
