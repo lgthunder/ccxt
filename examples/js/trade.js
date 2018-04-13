@@ -118,7 +118,7 @@ module.exports = class huobitrade {
         for (let sy in result) {
             let symbol = result[sy].symbol;
             if (symbol.indexOf("USDT") > 0 || symbol.indexOf("BTC")) {
-                console.log(symbol)
+                console.log(symbol + "usdt:" + symbol.indexOf("USDT") + " btc: " + symbol.indexOf("BTC"))
                 usdtArray[index] = result[sy];
                 index = index + 1;
             }
@@ -330,8 +330,8 @@ module.exports = class huobitrade {
         let symbolArr = await this.fetchUsdtAndBtcSymbolObj();
         let re = await this.fetchBalance();
         let coinArry = re.info.data.list;
-        console.log(symbolArr);
-        console.log(coinArry);
+        // console.log(symbolArr);
+        // console.log(coinArry);
         let array = []
         for (let index in coinArry) {
             let coin = coinArry[index];
