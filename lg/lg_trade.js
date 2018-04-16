@@ -77,7 +77,11 @@ async function main() {
                 break;
             case "fetch_trend":
                 let arry = [];
-                fetchTrend(re.copyWithin(arry, 1, re.length - 1));
+                for (let index in re) {
+                    if (index == 0) continue;
+                    arry.push(re[index]);
+                }
+                fetchTrend(arry);
                 break;
         }
     }
@@ -161,7 +165,7 @@ async function fetchBalance(position) {
 async function getMyPosition() {
     let huobi = new trade();
     let result = await huobi.getMyPosition();
-    console.log(result);
+    // console.log(result);
 }
 
 async function fetchOrders(status) {
