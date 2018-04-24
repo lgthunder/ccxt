@@ -338,6 +338,7 @@ module.exports = class huobitrade {
         let coinArry = re.info.data.list;
         let ustdArray = []
         let btcArray = []
+        console.log(coinArry);
         for (let index in hadax.info.data.list) {
             coinArry.push(hadax.info.data.list[index]);
         }
