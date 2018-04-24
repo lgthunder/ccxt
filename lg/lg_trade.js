@@ -6,9 +6,9 @@ const SYMBOL_BTC = 'BTC/USDT';
 async function main() {
     // let db = new dbUtill();
     // db.connect(new function () {
-        // db.close();
-        // console.log("call");
-        // db.close()
+    // db.close();
+    // console.log("call");
+    // db.close()
     // });
 
     let re = process.argv.splice(2);
@@ -92,7 +92,7 @@ async function main() {
                 fetchTrend(arry);
                 break;
             case "fetch_hadax":
-                fetchBalance(re[1]);
+                console.log(fetchBalance(re[1]));
                 break;
         }
     }
