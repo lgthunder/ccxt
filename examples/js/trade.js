@@ -341,6 +341,7 @@ module.exports = class huobitrade {
 
     async myPosition(obj,res, save) {
         console.log(res);
+        console.log(save)
         console.log("-----------------------------------------------")
         console.log("-----------------------------------------------")
         console.log("-----------------------------------------------")
