@@ -392,16 +392,17 @@ module.exports = class huobitrade {
                 let oldCoin = obj.findCoin(p.symbol, res);
                 total_usdt = total_usdt + p.total_usdt;
                 old_usdt = old_usdt + oldCoin.total_usdt;
+                let offset = p.total_usdt - oldCoin.total_usdt;
                 console.log("symbol: " + obj.modifiedStr(p.symbol, 10)
                     + " amount: " + obj.modifiedNum(p.amount)
                     + " price: " + obj.modifiedNum(p.price)
                     + " total: " + obj.modifiedNum(p.total)
                     + " total_usdt: " + obj.modifiedNum(p.total_usdt)
-                    + "  off_usdt: " + obj.modifiedNum(p.total_usdt - oldCoin.total_usdt))
+                    + "  off_usdt: " + obj.modifiedNum(offset)
+                    + "  off_precent: " + obj.modifiedNum(offset / old_usdt))
             }
         }
-        console.log("total_usdt: " + total_usdt);
-        console.log("pre_total_usdt: " + old_usdt);
+        console.log("total_usdt: " + total_usdt + "  off_usdt: " + old_usdt);
         if (save == 's') {
             let db = obj.getDb();
             db.saveObj('last', ustdArray);
