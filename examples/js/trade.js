@@ -402,7 +402,7 @@ module.exports = class huobitrade {
                     + "  off_precent: " + (offset / old_usdt * 100).toFixed(2))
             }
         }
-        console.log("total_usdt: " + total_usdt + "  pre_usdt: " + old_usdt);
+        console.log("total_usdt: " + total_usdt + "  pre_usdt: " + old_usdt + "  off_precent: " + ((total_usdt - old_usdt) / old_usdt * 100).toFixed(2));
         if (save == 's') {
             let db = obj.getDb();
             db.saveObj('last', ustdArray);
