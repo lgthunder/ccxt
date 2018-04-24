@@ -356,7 +356,7 @@ module.exports = class huobitrade {
                 }
                 let symbol = this.findSymbol(coin.currency, symbolArr);
                 if (symbol) {
-
+                    console.log(symbol);
                 } else {
                     symbol = coin.currency + 'btc';
                 }
