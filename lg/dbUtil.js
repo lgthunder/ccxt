@@ -10,40 +10,48 @@ module.exports = class dbUtill {
     }
 
     connect(callBack) {
-        let closeConnect = this.closeConnect;
         let c = this.client;
         this.client.auth(this.db_config.db_psd, function () {
             console.log("pass")
         })
-        console.log('1');
         // 连接提示
         this.client.on("connect", function (error) {
             console.log("connect....");
         });
-        console.log('2');
         // redis 链接错误提示；
         this.client.on("error", function (error) {
             console.log(error);
         });
-        console.log('3');
+        // this.client.set("domain", "coder10", function (err, res) {
+        //     c.end(true);
+        // });
 
-        this.client.set("domain", "coder10", redis.print);
-        this.client.get('domain', function (err, res) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(res);
-            }
-            // closeConnect();
-            // this.client.end(false);
+        // this.client.get('domain', function (err, res) {
+        //     if (err) {
+        //         console.log(err);
+        //     } else {
+        //         console.log(res);
+        //     }
+        //     c.end(false);
+        // })
+    }
+
+    saveObj(key, value) {
+        let c = this.client;
+        this.client.set(key, JSON.stringify(value), function (err, res) {
+            c.end(false);
+        });
+    }
+
+    getObj(key, callBack) {
+        let c = this.client;
+        this.client.get(key, function (err, res) {
+            console.log(err)
+            console.log(res)
+            callBack(JSON.parse(res));
             c.end(false);
         })
     }
-
-    closeConnect() {
-        this.client.end(false);
-    }
-
 
 }
 

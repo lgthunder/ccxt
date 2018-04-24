@@ -3,7 +3,7 @@ var Rx = require('rxjs/Rx');
 const huobitrade1 = require('./huobitrade.js');
 const biantrade = require('./biantrade.js')
 const tradeConfig = require('./trade_config');
-
+const dbUtill = require('./dbUtil')
 
 module.exports = class huobitrade {
     constructor() {
@@ -330,6 +330,7 @@ module.exports = class huobitrade {
     }
 
     async getMyPosition() {
+        let db = this.getDb();
         let symbolArr = await this.fetchUsdtAndBtcSymbolObj();
         let re = await this.fetchBalance();
         let hadax = await this.fetchHadaxBalance();
@@ -372,6 +373,9 @@ module.exports = class huobitrade {
             }
         }
         let total_usdt = 0
+        for (let index in btcArray) {
+            ustdArray.push(btcArray[index]);
+        }
         for (let index in ustdArray) {
             let p = ustdArray[index];
             if (p && p.total_usdt > 1) {
@@ -383,17 +387,18 @@ module.exports = class huobitrade {
                     + " total_usdt: " + this.modifiedNum(p.total_usdt))
             }
         }
-        for (let index in btcArray) {
-            let p = btcArray[index];
-            if (p && p.total_usdt > 1) {
-                total_usdt = total_usdt + p.total_usdt;
-                console.log("symbol: " + this.modifiedStr(p.symbol, 10)
-                    + " amount: " + this.modifiedNum(p.amount)
-                    + " price: " + this.modifiedNum(p.price)
-                    + " total: " + this.modifiedNum(p.total)
-                    + " total_usdt: " + this.modifiedNum(p.total_usdt))
-            }
-        }
+        db.saveObj('last', ustdArray);
+        // for (let index in btcArray) {
+        //     let p = btcArray[index];
+        //     if (p && p.total_usdt > 1) {
+        //         total_usdt = total_usdt + p.total_usdt;
+        //         console.log("symbol: " + this.modifiedStr(p.symbol, 10)
+        //             + " amount: " + this.modifiedNum(p.amount)
+        //             + " price: " + this.modifiedNum(p.price)
+        //             + " total: " + this.modifiedNum(p.total)
+        //             + " total_usdt: " + this.modifiedNum(p.total_usdt))
+        //     }
+        // }
         console.log("total_usdt: " + total_usdt);
     }
 
@@ -583,6 +588,16 @@ module.exports = class huobitrade {
             result = result + " ";
         }
         return result.substr(0, count - 1);
+    }
+
+    getDb() {
+        let db = new dbUtill();
+        db.connect(new function () {
+            // db.close();
+            console.log("call");
+            // db.close()
+        });
+        return db;
     }
 
     /**

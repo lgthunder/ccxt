@@ -4,13 +4,12 @@ const readline = require('readline');
 const SYMBOL_BTC = 'BTC/USDT';
 const dbUtill = require('./dbUtil')
 async function main() {
-    let db = new dbUtill();
-    db.connect(new function () {
-        // db.close();
-        console.log("call");
-        // db.close()
-    });
-
+    // let db = new dbUtill();
+    // db.connect(new function () {
+    //     // db.close();
+    //     console.log("call");
+    //     // db.close()
+    // });
     let re = process.argv.splice(2);
     if (re.length > 0) {
         let huobi = new trade();
@@ -95,6 +94,8 @@ async function main() {
                 fetchBalance(re[1]).then(function (result) {
                     console.log(result);
                 });
+                break;
+            case "test":
                 break;
         }
     }
