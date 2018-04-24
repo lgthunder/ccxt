@@ -332,19 +332,14 @@ module.exports = class huobitrade {
 
     async getMyPosition(save) {
         let position = this.myPosition;
-        let obj =this;
+        let obj = this;
         let db = this.getDb();
         db.getObj("last", function (res) {
             position(obj, res, save)
         })
     }
 
-    async myPosition(obj,res, save) {
-        console.log(res);
-        console.log(save)
-        console.log("-----------------------------------------------")
-        console.log("-----------------------------------------------")
-        console.log("-----------------------------------------------")
+    async myPosition(obj, res, save) {
         let symbolArr = await obj.fetchUsdtAndBtcSymbolObj();
         let re = await obj.fetchBalance();
         let hadax = await obj.fetchHadaxBalance();
@@ -387,13 +382,16 @@ module.exports = class huobitrade {
             }
         }
         let total_usdt = 0
+        let old_usdt = 0;
         for (let index in btcArray) {
             ustdArray.push(btcArray[index]);
         }
         for (let index in ustdArray) {
             let p = ustdArray[index];
             if (p && p.total_usdt > 1) {
+                let oldCoin = obj.findCoin(p.symbol, res);
                 total_usdt = total_usdt + p.total_usdt;
+                old_usdt = old_usdt + oldCoin.total_usdt;
                 console.log("symbol: " + obj.modifiedStr(p.symbol, 10)
                     + " amount: " + obj.modifiedNum(p.amount)
                     + " price: " + obj.modifiedNum(p.price)
@@ -402,7 +400,8 @@ module.exports = class huobitrade {
             }
         }
         console.log("total_usdt: " + total_usdt);
-        if (save=='s') {
+        console.log("pre_total_usdt: " + old_usdt);
+        if (save == 's') {
             let db = obj.getDb();
             db.saveObj('last', ustdArray);
         }
@@ -421,6 +420,13 @@ module.exports = class huobitrade {
 
     }
 
+    findCoin(symbol, arr) {
+        for (let index in arr) {
+            if (arr[index] && arr[index].symbol == symbol) {
+                return arr[index];
+            }
+        }
+    }
 
     findSymbol(symbol, arr) {
         for (let index in arr) {
