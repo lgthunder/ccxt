@@ -309,7 +309,7 @@ module.exports = class huobipro extends Exchange {
         } else {
             count = 0;
         }
-        let response = await this.privateGetAccountAccountsIdBalance(this.extend({
+        let response = await this.privateGetHadaxAccountAccountsIdBalance(this.extend({
             'id': this.accounts[count]['id'],
         }, params));
         let balances = response['data']['list'];
