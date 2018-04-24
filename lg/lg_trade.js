@@ -92,7 +92,9 @@ async function main() {
                 fetchTrend(arry);
                 break;
             case "fetch_hadax":
-                console.log(fetchBalance(re[1]));
+                fetchBalance(re[1]).then(function (result) {
+                    console.log(result);
+                });
                 break;
         }
     }
