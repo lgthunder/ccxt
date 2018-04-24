@@ -401,7 +401,7 @@ module.exports = class huobitrade {
             }
         }
         console.log("total_usdt: " + total_usdt);
-        if (save) {
+        if (save=='s') {
             let db = obj.getDb();
             db.saveObj('last', ustdArray);
         }
