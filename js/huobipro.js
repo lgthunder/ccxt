@@ -302,7 +302,6 @@ module.exports = class huobipro extends Exchange {
     async fetchBalance(params = {}) {
         await this.loadMarkets();
         await this.loadAccounts();
-        console.log(this.accounts);
         let count = 0;
         if (params && params.index) {
             count = params.index;
@@ -337,7 +336,6 @@ module.exports = class huobipro extends Exchange {
     async fetchHadaxBalance(params = {}) {
         await this.loadMarkets();
         await this.loadAccounts();
-        console.log(this.accounts);
         let count = 0;
         if (params && params.index) {
             count = params.index;

@@ -333,11 +333,13 @@ module.exports = class huobitrade {
         let symbolArr = await this.fetchUsdtAndBtcSymbolObj();
         let re = await this.fetchBalance();
         let hadax = await this.fetchHadaxBalance();
+        console.log(hadax)
         let btc_ticker = await this.huobi.fetchTicker('BTC/USDT');
         let coinArry = re.info.data.list;
         let ustdArray = []
         let btcArray = []
         coinArry.push(hadax.info.data.list);
+        console.log(coinArry);
         for (let index in coinArry) {
             let coin = coinArry[index];
             if (coin.balance > 0.01) {
