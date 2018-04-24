@@ -341,7 +341,7 @@ module.exports = class huobitrade {
         for (let index in hadax.info.data.list) {
             let coin = hadax.info.data.list[index];
             if (coin) {
-                if (coin.balance > 1 && coin.currency != 'ht' && coin.currency != 'btc') {
+                if (coin.balance > 1 && coin.currency != 'ht' && coin.currency != 'btc' && coin.currency != 'usdt') {
                     console.log(coin)
                     coinArry.push(coin);
                 }
@@ -355,6 +355,11 @@ module.exports = class huobitrade {
                     continue;
                 }
                 let symbol = this.findSymbol(coin.currency, symbolArr);
+                if (symbol) {
+
+                } else {
+                    symbol = coin.currency + 'btc';
+                }
                 if (symbol) {
                     let ticker = await this.huobi.fetchTicker(symbol);
                     let amount = coin.balance * ticker.close;
