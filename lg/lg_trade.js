@@ -2,7 +2,7 @@
 const trade = require('../examples/js/trade.js');
 const readline = require('readline');
 const SYMBOL_BTC = 'BTC/USDT';
-// const dbUtill = require('./dbUtil')
+const dbUtill = require('./dbUtil')
 async function main() {
     let db = new dbUtill();
     db.connect(new function () {
