@@ -399,7 +399,7 @@ module.exports = class huobitrade {
                     + " total: " + obj.modifiedNum(p.total)
                     + " total_usdt: " + obj.modifiedNum(p.total_usdt)
                     + "  off_usdt: " + obj.modifiedNum(offset)
-                    + "  off_precent: " + (offset / old_usdt * 100).toFixed(2))
+                    + "  off_precent: " + (offset / oldCoin.total_usdt * 100).toFixed(2))
             }
         }
         console.log("total_usdt: " + total_usdt + "  pre_usdt: " + old_usdt + "  off_precent: " + ((total_usdt - old_usdt) / old_usdt * 100).toFixed(2));
@@ -619,11 +619,7 @@ module.exports = class huobitrade {
 
     getDb() {
         let db = new dbUtill();
-        db.connect(new function () {
-            // db.close();
-            console.log("call");
-            // db.close()
-        });
+        db.connect();
         return db;
     }
 

@@ -9,7 +9,7 @@ module.exports = class dbUtill {
         this.client = redis.createClient(this.db_config.db_port, this.db_config.db_ip, {});
     }
 
-    connect(callBack) {
+    connect() {
         let c = this.client;
         this.client.auth(this.db_config.db_psd, function () {
             // console.log("pass")
