@@ -6,9 +6,9 @@ const dbUtill = require('./dbUtil')
 async function main() {
     let db = new dbUtill();
     db.connect(new function () {
-        db.close();
+        // db.close();
         console.log("call");
-        db.close()
+        // db.close()
     });
 
     let re = process.argv.splice(2);
