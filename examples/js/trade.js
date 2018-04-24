@@ -396,7 +396,8 @@ module.exports = class huobitrade {
                     + " amount: " + obj.modifiedNum(p.amount)
                     + " price: " + obj.modifiedNum(p.price)
                     + " total: " + obj.modifiedNum(p.total)
-                    + " total_usdt: " + obj.modifiedNum(p.total_usdt))
+                    + " total_usdt: " + obj.modifiedNum(p.total_usdt)
+                    + "  off_usdt: " + obj.modifiedNum(p.total_usdt - oldCoin.total_usdt))
             }
         }
         console.log("total_usdt: " + total_usdt);

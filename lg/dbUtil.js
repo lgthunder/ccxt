@@ -12,11 +12,11 @@ module.exports = class dbUtill {
     connect(callBack) {
         let c = this.client;
         this.client.auth(this.db_config.db_psd, function () {
-            console.log("pass")
+            // console.log("pass")
         })
         // 连接提示
         this.client.on("connect", function (error) {
-            console.log("connect....");
+            // console.log("connect....");
         });
         // redis 链接错误提示；
         this.client.on("error", function (error) {
