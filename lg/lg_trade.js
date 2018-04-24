@@ -180,9 +180,9 @@ async function fetchBalance(position) {
     return await huobi.fetchBalance(position);
 }
 
-async function getMyPosition() {
+async function getMyPosition(params) {
     let huobi = new trade();
-    let result = await huobi.getMyPosition();
+    let result = await huobi.getMyPosition(params);
     // console.log(result);
 }
 
