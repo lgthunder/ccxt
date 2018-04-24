@@ -309,6 +309,41 @@ module.exports = class huobipro extends Exchange {
         } else {
             count = 0;
         }
+        let response = await this.privateGetAccountAccountsIdBalance(this.extend({
+            'id': this.accounts[count]['id'],
+        }, params));
+        let balances = response['data']['list'];
+        let result = {'info': response};
+        for (let i = 0; i < balances.length; i++) {
+            let balance = balances[i];
+            let uppercase = balance['currency'].toUpperCase();
+            let currency = this.commonCurrencyCode(uppercase);
+            let account = undefined;
+            if (currency in result)
+                account = result[currency];
+            else
+                account = this.account();
+            if (balance['type'] == 'trade')
+                account['free'] = parseFloat(balance['balance']);
+            if (balance['type'] == 'frozen')
+                account['used'] = parseFloat(balance['balance']);
+            account['total'] = this.sum(account['free'], account['used']);
+            result[currency] = account;
+        }
+        return this.parseBalance(result);
+    }
+
+
+    async fetchHadaxBalance(params = {}) {
+        await this.loadMarkets();
+        await this.loadAccounts();
+        console.log(this.accounts);
+        let count = 0;
+        if (params && params.index) {
+            count = params.index;
+        } else {
+            count = 0;
+        }
         let response = await this.privateGetHadaxAccountAccountsIdBalance(this.extend({
             'id': this.accounts[count]['id'],
         }, params));

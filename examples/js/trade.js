@@ -320,6 +320,10 @@ module.exports = class huobitrade {
         return await  this.huobi.fetchBalance(position);
     }
 
+    async fetchHadaxBalance(position) {
+        return await  this.huobi.fetchHadaxBalance(position);
+    }
+
     async getKline(symbol, period, count) {
         let result = await this.huobi.fetchKline(symbol, period, count);
         return result;
@@ -328,10 +332,12 @@ module.exports = class huobitrade {
     async getMyPosition() {
         let symbolArr = await this.fetchUsdtAndBtcSymbolObj();
         let re = await this.fetchBalance();
+        let hadax = await this.fetchHadaxBalance();
         let btc_ticker = await this.huobi.fetchTicker('BTC/USDT');
         let coinArry = re.info.data.list;
         let ustdArray = []
         let btcArray = []
+        coinArry.push(hadax.info.data.list);
         for (let index in coinArry) {
             let coin = coinArry[index];
             if (coin.balance > 0.01) {

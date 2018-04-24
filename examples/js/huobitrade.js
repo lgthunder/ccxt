@@ -107,6 +107,10 @@ module.exports = class huobitrade {
         return await  this.exchange.fetchBalance({index: position});
     }
 
+    async fetchHadaxBalance(position) {
+        return await  this.exchange.fetchBalance({index: 0});
+    }
+
     async  fetchOhlcv() {
         let index = 4 // [ timestamp, open, high, low, close, volume ]
         let ohlcv = await this.exchange.fetchOHLCV('BTC/USDT', '30m')
