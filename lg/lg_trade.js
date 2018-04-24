@@ -19,7 +19,11 @@ async function main() {
                 fetchMa5();
                 break;
             case 'position':
-                getMyPosition();
+                if (re[1]) {
+                    getMyPosition(re[1]);
+                } else {
+                    getMyPosition();
+                }
                 break;
             case "fetchBtcMa5":
                 fetchBtcMa5();

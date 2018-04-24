@@ -329,8 +329,20 @@ module.exports = class huobitrade {
         return result;
     }
 
-    async getMyPosition() {
+
+    async getMyPosition(save) {
+        let position = this.myPosition();
         let db = this.getDb();
+        db.get("last", function (res) {
+            position(res, save)
+        })
+    }
+
+    async myPosition(res, save) {
+        console.log(res);
+        console.log("-----------------------------------------------")
+        console.log("-----------------------------------------------")
+        console.log("-----------------------------------------------")
         let symbolArr = await this.fetchUsdtAndBtcSymbolObj();
         let re = await this.fetchBalance();
         let hadax = await this.fetchHadaxBalance();
@@ -387,7 +399,12 @@ module.exports = class huobitrade {
                     + " total_usdt: " + this.modifiedNum(p.total_usdt))
             }
         }
-        db.saveObj('last', ustdArray);
+        console.log("total_usdt: " + total_usdt);
+        if (save) {
+            let db = this.getDb();
+            db.saveObj('last', ustdArray);
+        }
+
         // for (let index in btcArray) {
         //     let p = btcArray[index];
         //     if (p && p.total_usdt > 1) {
@@ -399,7 +416,7 @@ module.exports = class huobitrade {
         //             + " total_usdt: " + this.modifiedNum(p.total_usdt))
         //     }
         // }
-        console.log("total_usdt: " + total_usdt);
+
     }
 
 
