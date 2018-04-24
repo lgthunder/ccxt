@@ -3,7 +3,7 @@ var Rx = require('rxjs/Rx');
 const huobitrade1 = require('./huobitrade.js');
 const biantrade = require('./biantrade.js')
 const tradeConfig = require('./trade_config');
-const dbUtill = require('../lg/dbUtil')
+const dbUtill = require('../../lg/dbUtil.js')
 
 module.exports = class huobitrade {
     constructor() {
