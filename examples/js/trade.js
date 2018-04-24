@@ -334,19 +334,19 @@ module.exports = class huobitrade {
         let position = this.myPosition;
         let db = this.getDb();
         db.getObj("last", function (res) {
-            position(res, save)
+            position(this, res, save)
         })
     }
 
-    async myPosition(res, save) {
+    async myPosition(obj,res, save) {
         console.log(res);
         console.log("-----------------------------------------------")
         console.log("-----------------------------------------------")
         console.log("-----------------------------------------------")
-        let symbolArr = await this.fetchUsdtAndBtcSymbolObj();
-        let re = await this.fetchBalance();
-        let hadax = await this.fetchHadaxBalance();
-        let btc_ticker = await this.huobi.fetchTicker('BTC/USDT');
+        let symbolArr = await obj.fetchUsdtAndBtcSymbolObj();
+        let re = await obj.fetchBalance();
+        let hadax = await obj.fetchHadaxBalance();
+        let btc_ticker = await obj.huobi.fetchTicker('BTC/USDT');
         let coinArry = re.info.data.list;
         let ustdArray = []
         let btcArray = []
@@ -357,9 +357,9 @@ module.exports = class huobitrade {
                     console.log(coin.currency + " : " + coin.balance);
                     continue;
                 }
-                let symbol = this.findSymbol(coin.currency, symbolArr);
+                let symbol = obj.findSymbol(coin.currency, symbolArr);
                 if (symbol) {
-                    let ticker = await this.huobi.fetchTicker(symbol);
+                    let ticker = await obj.huobi.fetchTicker(symbol);
                     let amount = coin.balance * ticker.close;
                     // console.log(symbol + " : " + "amount: " + coin.balance + " price: " + ticker.close);
                     // console.log(symbol + " : " + amount.toFixed(2));
@@ -392,16 +392,16 @@ module.exports = class huobitrade {
             let p = ustdArray[index];
             if (p && p.total_usdt > 1) {
                 total_usdt = total_usdt + p.total_usdt;
-                console.log("symbol: " + this.modifiedStr(p.symbol, 10)
-                    + " amount: " + this.modifiedNum(p.amount)
-                    + " price: " + this.modifiedNum(p.price)
-                    + " total: " + this.modifiedNum(p.total)
-                    + " total_usdt: " + this.modifiedNum(p.total_usdt))
+                console.log("symbol: " + obj.modifiedStr(p.symbol, 10)
+                    + " amount: " + obj.modifiedNum(p.amount)
+                    + " price: " + obj.modifiedNum(p.price)
+                    + " total: " + obj.modifiedNum(p.total)
+                    + " total_usdt: " + obj.modifiedNum(p.total_usdt))
             }
         }
         console.log("total_usdt: " + total_usdt);
         if (save) {
-            let db = this.getDb();
+            let db = obj.getDb();
             db.saveObj('last', ustdArray);
         }
 
