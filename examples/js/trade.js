@@ -332,9 +332,10 @@ module.exports = class huobitrade {
 
     async getMyPosition(save) {
         let position = this.myPosition;
+        let obj =this;
         let db = this.getDb();
         db.getObj("last", function (res) {
-            position(this, res, save)
+            position(obj, res, save)
         })
     }
 
