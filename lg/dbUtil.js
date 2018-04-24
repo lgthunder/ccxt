@@ -47,7 +47,6 @@ module.exports = class dbUtill {
         let c = this.client;
         this.client.get(key, function (err, res) {
             console.log(err)
-            console.log(res)
             callBack(JSON.parse(res));
             c.end(false);
         })
