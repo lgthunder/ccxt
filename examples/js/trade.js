@@ -390,16 +390,22 @@ module.exports = class huobitrade {
             let p = ustdArray[index];
             if (p && p.total_usdt > 1) {
                 let oldCoin = obj.findCoin(p.symbol, res);
+                let old_total_coin = 0;
+                if (oldCoin) {
+                    old_total_coin = oldCoin.total_usdt;
+                } else {
+                    old_total_coin = p.total_usdt;
+                }
                 total_usdt = total_usdt + p.total_usdt;
-                old_usdt = old_usdt + oldCoin.total_usdt;
-                let offset = p.total_usdt - oldCoin.total_usdt;
+                old_usdt = old_usdt + old_total_coin;
+                let offset = p.total_usdt - old_total_coin;
                 console.log("symbol: " + obj.modifiedStr(p.symbol, 10)
                     + " amount: " + obj.modifiedNum(p.amount)
                     + " price: " + obj.modifiedNum(p.price)
                     + " total: " + obj.modifiedNum(p.total)
                     + " total_usdt: " + obj.modifiedNum(p.total_usdt)
                     + "  off_usdt: " + obj.modifiedNum(offset)
-                    + "  off_precent: " + (offset / oldCoin.total_usdt * 100).toFixed(2))
+                    + "  off_precent: " + (offset / old_total_coin * 100).toFixed(2))
             }
         }
         console.log("total_usdt: " + total_usdt + "  pre_usdt: " + old_usdt + "  off_precent: " + ((total_usdt - old_usdt) / old_usdt * 100).toFixed(2));
