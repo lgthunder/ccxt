@@ -104,9 +104,10 @@ async function main() {
             case "margin":
                 for (let index = 0; index < 100; index++) {
                     try {
-                        await marginOrder(huobi, 'adausdt', 'usdt', 100);
+                        let resp = await marginOrder(huobi, 'adausdt', 'usdt', 100);
+                        console.log(resp)
                     } catch (e) {
-
+                        console.log(e)
                     }
                 }
                 break;
