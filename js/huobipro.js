@@ -93,6 +93,7 @@ module.exports = class huobipro extends Exchange {
                         'dw/withdraw-virtual/create', // 申请提现虚拟币
                         'dw/withdraw-virtual/{id}/place', // 确认申请虚拟币提现
                         'dw/withdraw-virtual/{id}/cancel', // 申请取消提现虚拟币
+                        'margin/orders'
                     ],
                 },
             },
@@ -514,6 +515,11 @@ module.exports = class huobipro extends Exchange {
         return response;
     }
 
+    async createMarginOrder(symbol, currency, amount) {
+        let response = await this.privatePostMarginOrders({'symbol': symbol, 'currency': currency, 'amount': amount});
+        return response;
+
+    }
 
     sign(path, api = 'public', method = 'GET', params = {}, headers = undefined, body = undefined) {
         let url = '/';

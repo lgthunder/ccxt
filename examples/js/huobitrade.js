@@ -111,6 +111,10 @@ module.exports = class huobitrade {
         return await  this.exchange.fetchHadaxBalance({index: 0});
     }
 
+    async createMarginOrder(symbol, currency, amount) {
+        return await this.exchange.createMarginOrder(symbol, currency, amount);
+    }
+
     async  fetchOhlcv() {
         let index = 4 // [ timestamp, open, high, low, close, volume ]
         let ohlcv = await this.exchange.fetchOHLCV('BTC/USDT', '30m')

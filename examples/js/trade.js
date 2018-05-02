@@ -683,5 +683,8 @@ module.exports = class huobitrade {
         return await this.huobi.createLimitBuyOrder(symbol, amount, price, 1)
     }
 
+    async createMarginOrder(symbol, currency, amount) {
+        return await this.huobi.createMarginOrder(symbol, currency, amount);
+    }
 }
 
