@@ -467,8 +467,8 @@ function fetchTrend(params) {
     let huobi = new trade();
     huobi.fetchTrend(params);
 }
-function marginOrder(huobi, symbol, currency, amount) {
-    let resp = huobi.createMarginOrder(symbol, currency, amount);
+async function marginOrder(huobi, symbol, currency, amount) {
+    let resp = await huobi.createMarginOrder(symbol, currency, amount);
     console.log(resp);
 }
 
