@@ -103,8 +103,11 @@ async function main() {
                 break;
             case "margin":
                 for (let index = 0; index < 100; index++) {
-                    console.log(index);
-                    await marginOrder(huobi, 'adausdt', 'usdt', 100);
+                    try {
+                        await marginOrder(huobi, 'adausdt', 'usdt', 100);
+                    } catch (e) {
+
+                    }
                 }
                 break;
         }
@@ -469,6 +472,6 @@ function fetchTrend(params) {
 }
 async function marginOrder(huobi, symbol, currency, amount) {
     let resp = await huobi.createMarginOrder(symbol, currency, amount);
-    console.log(resp);
+    return resp;
 }
 
