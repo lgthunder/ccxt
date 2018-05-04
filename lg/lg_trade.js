@@ -14,7 +14,7 @@ async function main() {
     if (re.length > 0) {
         let huobi = new trade();
         let account = await huobi.loadAccounts();
-        console.log(account);
+        // console.log(account);
         switch (re[0]) {
             case 'fetchMa5':
                 fetchMa5();
