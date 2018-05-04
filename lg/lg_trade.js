@@ -13,7 +13,8 @@ async function main() {
     let re = process.argv.splice(2);
     if (re.length > 0) {
         let huobi = new trade();
-        await huobi.loadAccounts();
+        let account = await huobi.loadAccounts();
+        console.log(account);
         switch (re[0]) {
             case 'fetchMa5':
                 fetchMa5();
