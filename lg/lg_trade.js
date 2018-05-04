@@ -113,6 +113,9 @@ async function main() {
                     }
                 }
                 break;
+            default:
+                console.log("unDefine order")
+                break;
         }
     }
 }
@@ -199,10 +202,8 @@ async function getMyPosition(params) {
 }
 
 async function fetchOrders(status) {
-    console.log(status);
     let huobi = new trade();
     let result = await huobi.fetchAllOrders("BTC/USDT", status);
-    console.log(result);
     let orders = [];
     for (let index in result) {
         let info = result[index];
