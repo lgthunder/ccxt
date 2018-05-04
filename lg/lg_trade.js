@@ -199,6 +199,7 @@ async function getMyPosition(params) {
 }
 
 async function fetchOrders(status) {
+    console.log(status);
     let huobi = new trade();
     let result = await huobi.fetchAllOrders("BTC/USDT", status);
     console.log(result);
